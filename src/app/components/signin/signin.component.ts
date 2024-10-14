@@ -122,7 +122,6 @@ export class SigninComponent {
   }
 
   public getLoginData(data: any) {
-    console.log('hgjfdk');
     this.isSubmitClicked = true;
     if (this.loginForm.invalid) {
       return;
@@ -137,6 +136,7 @@ export class SigninComponent {
         'captcha': data.captcha
       };
       this.spinner.show();
+      console.log('fdsgssdf');
       this.authService.login(loginData, this.captchaKey).subscribe({
         next: (res: any) => {
           if (res) {

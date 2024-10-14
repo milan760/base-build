@@ -1,1 +1,9 @@
-<router-outlet />
+<ngx-spinner bdColor="rgba(10, 20, 30, 0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<div *ngIf="auth">
+    <router-outlet />
+</div>
+<div *ngIf="!auth" class="text-center">
+    <p class="text-danger">Refused To Connect</p>
+</div>

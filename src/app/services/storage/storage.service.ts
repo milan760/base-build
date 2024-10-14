@@ -15,7 +15,6 @@ export class StorageService {
   public setSessionAttribute(attrName: any, data: any) {
     this.getSessionStorageDetails();
     const DATA: any = {}; DATA[attrName] = this.encryptService.encodeKeyValue(JSON.stringify(data), this.getSessionId());
-    console.log(this.AppStorage, DATA);
     Object.assign(this.AppStorage, DATA);
     this.updateSessionStorage(data);
   }
@@ -35,12 +34,10 @@ export class StorageService {
 
   private updateSessionStorage(data: any) {
     sessionStorage.removeItem('ANGULARSESSIONID');
-    // console.log(data);
     this.setSessionStorage(data);
   }
 
   private setSessionStorage(data: any) {
-    // console.log(JSON.stringify(data), this.encryptService.encodeTotalSession(JSON.stringify(data)));
     sessionStorage.setItem('ANGULARSESSIONID', this.encryptService.encodeTotalSession(JSON.stringify(data)));
   }
 
