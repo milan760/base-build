@@ -1,0 +1,154 @@
+<section class="header2">
+    <div class="row">
+        <div class="col-md-12 navbar-container">
+            <nav class="navbar navbar-expand-lg">
+                <div class="logo-part">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="../../../../assets/afterLoginImages/headerImages/logo-odisha.png"
+                                class="logo-container">
+                        </div>
+                        <div class="col-md-7">
+                            <div style="font-size: 16px; font-weight: 600;">Social Security & Empowerment of Persons
+                                with Disabilities Department </div>
+                            <div style="font-size: 14px;">Government Of Odisha </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="parent-ul">
+                        <li class="parent-li" *ngFor="let res of viewResourcesList, let ind = index;">
+
+                            <div *ngIf="res?.responseDTOs == null" [routerLink]="'/' + res?.path"
+                                routerLinkActive="active-menu" class="parent-li-content"
+                                [routerLinkActiveOptions]="{exact: true}" (click)="onClickMenu()">
+                                <i *ngIf="res?.icon" class="{{res?.icon}} parent-li-icon"></i>
+                                <a class="parent-li-name">
+                                    {{res?.name}}
+                                </a>
+                            </div>
+                            <div *ngIf="res?.responseDTOs != null" class="parent-li-content"
+                                [ngClass]="getActiveClassforHorMenu(res)">
+                                <i *ngIf="res?.icon" class="{{res?.icon}} parent-li-icon"></i>
+                                <a [id]="ind" #menus class="parent-li-name" href="javascript:void(0);">
+                                    {{res?.name}}
+                                </a>
+                                <i *ngIf="res?.hasSubMenu && res?.responseDTOs && res?.responseDTOs.length"
+                                    class="fa fa-angle-right parent-li-indicator"></i>
+                            </div>
+                            <ul *ngIf="res?.hasSubMenu && res?.responseDTOs && res?.responseDTOs.length"
+                                class="child-ul">
+                                <!-- class="child-ul" [ngStyle]="{'margin-left': marginLeft + 'px'}"> -->
+                                <ng-container *ngTemplateOutlet="recursiveTmpl; context:{RList: res.responseDTOs }">
+                                </ng-container>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- hamburger menu starts -->
+                <div class="sidebar-div">
+                    <div *ngIf="resources?.length" class="sidebar-btn" (click)="btnClick()">
+                        <i #sidebarBtn [ngClass]="'fa fa-bars'"></i>
+                        <!-- <i #sidebarBtn [ngClass]="showSideNavabar ? 'fa fa-times' : 'fa fa-bars'"></i> -->
+                    </div>
+                    <nav #sidebarMenu class="sidebar" [ngClass]="showSideNavabar ? 'sidebar-show' : 'sidebar'">
+                        <ul class="sidebar-ul">
+                            <li class="sidebar-li" *ngFor="let res of resources, let ind = index;">
+                                <div *ngIf="res?.responseDTOs == null" [routerLink]="'/' + res?.path"
+                                    routerLinkActive="activeMenu" class="sidebar-content-div"
+                                    [routerLinkActiveOptions]="{exact: true}" (click)="onClickMenu()">
+                                    <i *ngIf="res?.icon" class="{{res?.icon}} sidebar-content-icon"></i>
+                                    <a class="sidebar-content">
+                                        {{res?.name}}
+                                    </a>
+                                </div>
+                                <div class="sidebar-content-div" *ngIf="res?.responseDTOs != null"
+                                    (click)="handleClick(res)" [ngClass]="getActiveClass(res)">
+                                    <i *ngIf="res?.icon" class="{{res?.icon}} sidebar-content-icon"></i>
+                                    <a class="sidebar-content">
+                                        {{res?.name}}
+                                        <span *ngIf="res?.hasSubMenu && res?.responseDTOs && res?.responseDTOs?.length">
+                                            <i [ngClass]="res?.expanded ? 'fa fa-angle-down' : 'fa fa-angle-right'"
+                                                style="padding: 0px"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                                <ul class="sidebar-child-ul" *ngIf="res?.expanded">
+                                    <ng-container
+                                        *ngTemplateOutlet="recursiveSidemenuTmpl; context:{RList: res?.responseDTOs }">
+                                    </ng-container>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- <nav #sidebarMenu class="sidebar" [ngClass]="showSideNavabar ? 'sidebar-show' : 'sidebar'">
+                    <ul class="sidebar-ul">
+                        <li class="sidebar-li" *ngFor="let res of resources, let ind = index;"
+                            (click)="redirectToMenu(res, ind)" [ngClass]="ind === activeIndex ? 'active' : ''">
+                            <div class="sidebar-content-div">
+                                <i *ngIf="res.icon" class="{{res.icon}} sidebar-content-icon"></i>
+                                <a class="sidebar-content">
+                                    {{res.name}}
+                                    <span *ngIf="res.hasSubMenu && res.responseDTOs && res.responseDTOs.length">
+                                        <i class="fa fa-caret-down" style="padding: 0px"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <ul class="sidebar-child-ul"
+                                *ngIf="res.hasSubMenu && res.responseDTOs && res.responseDTOs.length">
+                                <ng-container
+                                    *ngTemplateOutlet="recursiveSidemenuTmpl; context:{RList: res.responseDTOs }">
+                                </ng-container>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav> -->
+                </div>
+                <!-- hamburger menu ends -->
+            </nav>
+        </div>
+
+    </div>
+</section>
+
+<ng-template #recursiveTmpl let-Reslist="RList" let-cnt="count">
+    <li *ngFor="let res of Reslist, let ind = index;" class="child-li" (click)="redirectToMenu(res, ind)">
+        <div class="child-li-content">
+            <i *ngIf="res.icon" class="{{res.icon}} child-li-icon"></i>
+            <a class="child-li-name" href="javascript:void(0);">
+                {{res.name}}
+            </a>
+            <i *ngIf="res.hasSubMenu && res.responseDTOs && res.responseDTOs.length"
+                class="fa fa-angle-right child-li-indicator"></i>
+        </div>
+        <ul *ngIf="res.hasSubMenu && res.responseDTOs && res.responseDTOs.length" class="child-ul ul-right">
+            <ng-container
+                *ngTemplateOutlet="recursiveTmpl;context:{RList: res.responseDTOs, count: (cnt ? cnt : '') + (ind+1) + '.' }">
+            </ng-container>
+        </ul>
+    </li>
+</ng-template>
+<ng-template #recursiveSidemenuTmpl let-Reslist="RList" let-cnt="count">
+    <li *ngFor="let res of Reslist, let ind = index;" class="sidebar-child-li" (click)="redirectToMenu(res, ind)">
+        <div class="sidebar-child-content-div">
+            <i *ngIf="res.icon" class="{{res?.icon}} sidebar-child-content-icon"></i>
+            <a class="sidebar-child-content" href="javascript:void(0);">
+                {{res?.name}}
+                <span *ngIf="res?.hasSubMenu && res?.responseDTOs && res?.responseDTOs?.length">
+                    <i class="fa fa-caret-down" style="padding: 0px"></i>
+                </span>
+            </a>
+        </div>
+        <ul *ngIf="res?.hasSubMenu && res?.responseDTOs && res?.responseDTOs?.length" class="">
+            <ng-container
+                *ngTemplateOutlet="recursiveTmpl;context:{RList: res?.responseDTOs, count: (cnt ? cnt : '') + (ind+1) + '?.' }">
+            </ng-container>
+        </ul>
+    </li>
+</ng-template>
+<!-- <ng-template #msg>
+    <h5>Please Select a Role !.</h5>
+</ng-template> -->

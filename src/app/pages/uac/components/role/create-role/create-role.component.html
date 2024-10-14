@@ -1,0 +1,72 @@
+<form [formGroup]="myform" (ngSubmit)="submitForm(myform.value)">
+    <div class="container-fluid top-container-create-card mt-1 px-0 mx-0">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 mx-0 px-1">
+                <div class="custom-card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 card-title">{{dataForEdit ? 'Edit' : 'Create'}} Role</div>
+                            <div class="col-md-6 float-right">
+                                <div class="float-end back-button-cntnr" aria-label="Create/Edit">
+                                    <button type="button" class="btn btn-sm btn-custom" (click)="goToView()">
+                                        <i class="fa fa-reply"></i>Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4 d-flex align-items-center"> <label class="col-lbl">Role
+                                            Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="roleName" placeholder="Role Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4 d-flex align-items-center"> <label class="col-lbl">Role
+                                            Code</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="roleCode" placeholder="Role Code" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" formGroupName="status">
+                                <div class="form-group row">
+                                    <div class="col-md-4 d-flex align-items-center"> <label
+                                            class="col-lbl">Status</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" formControlName="statusId">
+                                            <option [value]=null selected>Select</option>
+                                            <option [value]=1>Active</option>
+                                            <option [value]=0>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center action-btn">
+                                <button type="button" class="btn btn-sm" (click)="resetForm()"><i
+                                        class="fa fa-refresh"></i>reset</button>
+                                <button type="submit" class="btn btn-sm"><i class="fa fa-paper-plane"></i>{{dataForEdit
+                                    ? 'Update' : 'Submit'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

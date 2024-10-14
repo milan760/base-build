@@ -1,0 +1,68 @@
+.top-container {
+    // .card-body {
+    // 	background-color: #f2f7ff;
+    // }
+
+    .card-header {
+        background-color: rgb(12, 59, 75);
+        // background: linear-gradient(90deg, #05607e 0%, #2f95a1 47%, #07627f 100%);
+        background: linear-gradient(90deg, #000713 0%, #13395e 47%, #000713 100%);
+        color: white;
+        text-transform: uppercase;
+    }
+
+    .button-grp {
+        text-align: right;
+
+        // .btn {
+        // 	color: white !important;
+        // 	outline-color: white;
+        // 	border-color: #ffffff;
+        // 	margin: 2px;
+        // 	background-color: #2e94a0;
+        // }
+
+    }
+
+    .btn-custom {
+        border-radius: 1rem;
+        padding: .25rem 1.75rem;
+        margin: 0 .75rem;
+        text-transform: uppercase;
+    }
+
+    .table {
+        font-family: poppins;
+        border-collapse: separate;
+        border-spacing: 0 .75rem;
+        border: none;
+
+        .table-head {
+            // background-color: #07627f;
+            background-color: #010916;
+
+            color: white;
+        }
+
+        tr {
+            background-color: white;
+
+            td {
+                // margin: 0px;
+                padding: .75rem;
+                border-width: 1px 0 1px 0;
+                border-style: solid;
+                border-color: #d7d7d7;
+
+                &:first-child {
+                    border-left: 1px solid #d7d7d7;
+                }
+
+                &:last-child {
+                    border-right: 1px solid #d7d7d7;
+                }
+            }
+        }
+
+    }
+}

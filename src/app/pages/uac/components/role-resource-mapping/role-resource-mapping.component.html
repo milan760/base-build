@@ -1,0 +1,75 @@
+<form [formGroup]="myform" (ngSubmit)="submitForm()">
+    <div class="container-fluid top-container-create-card mt-1 px-0 mx-0">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 mx-0 px-1">
+                <div class="custom-card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 card-title">Role-Resource Mapping</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-2"><label class="col-lbl">Role</label></div>
+                                    <div class="col-md-8">
+                                        <select class="form-control filter-form-control" formControlName="role_id"
+                                            (change)="getAllResourceWithMappedResourceByRoleId()">
+                                            <option value="" selected>Select</option>
+                                            <option *ngFor="let roles of roleList" [value]="roles.roleId">
+                                                {{roles.roleCode}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-2"><label class="col-lbl">Resources</label></div>
+                                    <div class="col-md-8">
+                                        <ul *ngIf="resourceList && resourceList.length !== 0; else msg" class="ul-card">
+                                            <ng-container
+                                                *ngTemplateOutlet="recursiveTmpl; context:{ RList: resourceList }">
+                                            </ng-container>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center action-btn">
+                                <button type="button" class="btn btn-sm" (click)="resetForm()"><i
+                                        class="fa fa-refresh"></i>&nbsp;reset</button>
+                                <button type="submit" class="btn btn-sm"><i
+                                        class="fa fa-paper-plane"></i>&nbsp;Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #recursiveTmpl let-Reslist="RList" let-cnt="count">
+    <li *ngFor="let resource of Reslist, let ind = index;">
+        <input type="checkbox" class="form-check-input" [value]="resource?.mapped" [checked]="resource?.mapped"
+            (change)="resource.mapped = !resource.mapped"
+            (change)="checkUncheckChildResource($event, resource?.resourceId)" />&nbsp;
+        <!-- (change)="resource.mapped = !resource.mapped" -->
+        <label class="form-check-label"> {{cnt ? cnt : ''}}{{ind+1}}. {{resource?.name}} {{"( " + resource?.description
+            + " )"}} </label>
+        <i [ngClass]="resource?.mapped ? 'fa fa-angle-down fa-check' : 'fa fa-angle-right fa-check'"></i>
+        <ul class="ul-card" *ngIf="resource?.responseDTOs && resource?.responseDTOs?.length !== 0">
+            <ng-container
+                *ngTemplateOutlet="recursiveTmpl; context:{ RList: resource?.responseDTOs, count: (cnt ? cnt : '') + (ind+1) + '.' }">
+            </ng-container>
+        </ul>
+    </li>
+</ng-template>
+<ng-template #msg>
+    <h5>
+        Please Select a Role !.
+    </h5>
+</ng-template>

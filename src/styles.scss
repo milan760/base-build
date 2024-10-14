@@ -1,0 +1,446 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --first-color: #16f;
+    --second-color: #ff7;
+
+    // make a file in assets then define all mixins and root in it then include it up and use
+    // @mixin zeroMarPad {
+    //     padding: 0%;
+    //     margin: 0%;
+    // }
+}
+
+// @mixin square($size, $radius: 0) {
+//     width: $size;
+//     height: $size;
+
+//     @if $radius !=0 {
+//         border-radius: $radius;
+//     }
+// }
+
+// @mixin zeroMarPad {
+//     padding: 0%;
+//     margin: 0%;
+// }
+
+$darkTheme: var(--darkTheme-color);
+// --darkTheme-color can be changed from component dynamically.
+$lightTheme: var(--lightTheme-color);
+// --lightTheme-color can be changed from component dynamically.
+$lighterTheme: var(--lighterTheme-color);
+$darklineargrad: linear-gradient(90deg, #09b972 14%, #0ac178 66%, #0abc75 100%);
+$btnlineargrad: linear-gradient(0deg, rgba(3, 53, 85, 1) 0%, rgba(5, 78, 126, 1) 49%);
+// --lighterTheme-color can be changed from component dynamically.
+$font-white: white;
+$bg-white: white;
+// $golden: #e8c07d;
+
+body {
+    font-family: "Roboto";
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+// custom card
+.custom-card {
+    box-sizing: border-box;
+    margin: 1% 4%;
+    box-shadow: 0px 2px 10px $darkTheme;
+    border-radius: 6px;
+
+    .card-header {
+        background: $darkTheme;
+        padding: 6px 0px !important;
+        border-radius: 6px 6px 0px 0px;
+
+        .card-title {
+            margin: 7px 0px 0px 0px;
+            padding: 0px 0px 0px 42px;
+            color: $font-white;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+
+            &:first-letter {
+                text-transform: capitalize;
+            }
+        }
+
+        .back-button-cntnr {
+            background-color: $bg-white;
+            padding: 3px;
+            border-radius: 1rem;
+
+            .btn-custom {
+                // back button
+                border-radius: 1rem;
+                border: 1px solid $font-white;
+                color: $font-white;
+                background-color: $darkTheme;
+                padding: 2px 12px;
+                margin: 0px 0px;
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: 600;
+
+                .fa {
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+
+    .card-body {
+        padding: 12px 25px !important;
+        border-top: none !important;
+        border-radius: 0px 0px 6px 6px;
+
+        hr {
+            margin: 4px 20px;
+            background-color: $lightTheme;
+        }
+    }
+}
+
+// custom table
+.table {
+    // font-family: poppins;
+    text-align: center;
+
+    // border-collapse: separate;
+    // border-spacing: 0 .75rem;
+    // border: none;
+    th {
+        padding: 0.3rem !important;
+        text-transform: capitalize;
+        color: white;
+        font-size: 13px;
+        vertical-align: inherit;
+        letter-spacing: 0.5px;
+        font-weight: 500 !important;
+
+        .sort-symbol-color {
+            color: #ffffff;
+        }
+    }
+
+    td {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        padding: 0px 7px !important;
+        margin: 0px 0px !important;
+        vertical-align: middle;
+        // border: 0.5px solid $lightTheme;
+        font-weight: 100 !important;
+        text-transform: uppercase;
+    }
+
+    .table-head {
+        // background-color: #07627f;
+        font-size: 14px;
+        // background: linear-gradient(90deg, $lightTheme 9%, $lightTheme 54%, $lightTheme 100%);
+        background: #4061D4;
+        color: white;
+        font-weight: 100;
+
+        tr {
+            th {
+                background: #044C7C;
+            }
+        }
+    }
+
+}
+
+.table-striped>tbody>tr:nth-child(2n+1)>td,
+.table-striped>tbody>tr:nth-child(2n+1)>th {
+    background-color: #E8F9FF;
+}
+
+// custom form group
+.form-group {
+    margin-bottom: 0.5rem !important;
+
+    .col-lbl {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        display: flex;
+        align-items: center;
+        color: #414042;
+
+        &:after {
+            content: ":";
+        }
+    }
+
+    .required-label:after {
+        content: "*";
+        margin-right: 4px;
+        color: red;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        height: 38px;
+        // background: #FFFFFF;
+        // border: 1px solid #BCBEC0;
+        // box-sizing: border-box;
+        // box-shadow: inset 2px 2px 3px rgb(86 103 113 / 29%);
+        // border-radius: 10px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        background: #ffffff;
+        border: 1px solid $darkTheme;
+        box-sizing: border-box;
+        box-shadow: 1px 1px 2px rgb(0 0 0 / 15%);
+        border-radius: 10px;
+    }
+
+    ::placeholder {
+        // Chrome, Firefox, Opera, Safari 10.1+
+        // opacity: 1; // Firefox
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 15px;
+        display: flex;
+        align-items: center;
+        color: #bcbec0;
+    }
+
+    .invalid-field {
+        border-color: #dc35455e;
+        box-shadow: inset 0px 0px 3px rgb(226 87 100);
+        padding-right: calc(1.5em + 0.75rem);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(2.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+}
+
+.custom-dropdown {
+    background: #ffffff;
+    border: 1px solid #033454;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 2px rgb(0 0 0 / 15%);
+    border-radius: 4px;
+    height: 31px;
+    width: 50px;
+    padding: 0px 0px;
+    font-size: 13px;
+    margin-left: 7px;
+}
+
+.fullscreen {
+    display: block !important;
+    z-index: 9999 !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    overflow: auto !important;
+    background: white;
+    padding-top: 10px !important;
+    // transition: 0.1s;
+}
+
+.action-btn {
+    .btn {
+        padding: 5px 9px;
+        text-transform: uppercase;
+        margin: 3px 3px;
+        background: $btnlineargrad;
+        box-shadow: 0px 2px 4px rgb(142 185 221 / 60%);
+        border-radius: 10px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        color: $font-white;
+
+        .fa {
+            margin-right: 4px;
+            color: white;
+        }
+    }
+
+    .expand-btn {
+        background: #f4f6f7;
+        border: 1px solid #828282;
+        padding: 5px 9px;
+        // background: #EBFBFF;
+        // border: 1px solid #828282;
+        box-shadow: 0.5px 0.5px 2px rgb(0 0 0 / 11%);
+        border-radius: 3px;
+
+        .fa {
+            color: #828282;
+            // color: #103FAA;
+        }
+    }
+}
+
+.err-msgs {
+    width: 63% !important;
+}
+
+.view-btn {
+    background: #C9FFF5;
+    border: 0.5px solid #40C1C9;
+    border-radius: 50%;
+    margin: 4px 0px;
+
+    .fa {
+        color: #40C1C9;
+    }
+}
+
+.edit-btn {
+    background: #FFF8F2;
+    border: 0.5px solid #EAAE7C;
+    border-radius: 50%;
+    margin: 4px 0px;
+
+    .fa {
+        color: #EAAE7C;
+    }
+}
+
+.modal {
+    .modal-dialog {
+        .modal-content {
+            .modal-header {
+                background-color: $darkTheme;
+                padding: 0.4rem 1rem !important;
+
+                h1 {
+                    color: white;
+                }
+
+                .btn-close {
+                    filter: invert(100%);
+                }
+            }
+
+            .modal-body {
+                border: 1px solid $darkTheme;
+                border-top: none;
+            }
+        }
+    }
+}
+
+.the-fieldset {
+    padding: 5px 9px;
+    /* border: 0.5px solid #6ea1e5; */
+    position: relative;
+    margin-bottom: 15px;
+    border-radius: 7px;
+    // box-shadow: 1px 1px 5px #6ea1e5;
+    background: #d4e6ff;
+    background: linear-gradient(90deg, #d4e6ff 3%, #dfedff 43%, #e9f2ff 88%);
+    border: 0.5px solid #aecef9;
+
+    .the-legend {
+        // border-style: none;
+        // border-width: 0;
+        // line-height: 20px;
+        // cursor: pointer;
+
+        font-size: 14px;
+        margin-bottom: 0;
+        width: auto;
+        padding: 2px 10px;
+        border: 1px solid #1261cd;
+        background: linear-gradient(170deg, #1261cd 20%, #2f7ade 43%, #84aee7 100%);
+        color: #ffffff;
+        border-radius: 6px;
+        box-shadow: 1px 1px 1px #9ca2ab;
+        letter-spacing: 0.7px;
+        // animation: pulse 2s infinite;
+    }
+
+    .legend2,
+    .legend3 {
+        color: white;
+        text-transform: uppercase;
+        background: linear-gradient(180deg, #2E7BD5 0%, #2F3E70 100%);
+        cursor: pointer;
+        position: absolute;
+        top: -31px;
+
+        font-size: 14px;
+        margin-bottom: 0;
+        width: auto;
+        padding: 2px 10px;
+        border-radius: 6px;
+        border: 1px solid #1261cd;
+        box-shadow: 1px 1px 1px #9ca2ab;
+    }
+
+    .legend2 {
+        right: 120px;
+    }
+
+    .legend3 {
+        right: 20px;
+    }
+
+}
+
+.my-btn {
+    background: linear-gradient(0deg, rgba(3, 53, 85, 1) 0%, rgba(5, 78, 126, 1) 49%);
+    box-shadow: 0px 2px 4px rgb(142 185 221 / 60%);
+    border-radius: 10px;
+    width: 100%;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    align-items: center;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 10px;
+    margin-top: 5px;
+    border: none;
+}
+
+// media-query
+@media screen and (max-width: 993px) {
+    .custom-card {
+        margin: 1px 1px;
+
+        .card-header {
+            padding: 1px 0px !important;
+
+            .card-title {
+                margin: 1px 0px;
+                padding: 2px 0px 2px 12px;
+                font-size: 16px;
+            }
+        }
+
+        .card-body {
+            padding: 3px 2px !important;
+        }
+    }
+}

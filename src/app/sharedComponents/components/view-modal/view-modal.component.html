@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+
+            <fieldset class="the-fieldset"
+                *ngFor="let fieldset of (this.receivedData?.whichArrayToLoop && this.receivedData?.dataRowObj) ? this[receivedData.whichArrayToLoop] : [] ; let i = index;">
+                <legend class="the-legend"> {{fieldset?.legend}} </legend>
+                <div class="row">
+                    <div class="col-md-6" *ngFor="let item of fieldset.fieldSetLoops">
+                        <div class="row">
+                            <div class="col-md-6 m-0 p-0"> <label class="lbl mandatory">{{item?.lblDsply}} </label>
+                            </div>
+                            <div class="col-md-6 m-0 p-0">
+                                <span *ngIf="item.dataType == 'image'" class="val">
+                                    <img *ngIf=' "" | extractValue :this.receivedData.dataRowObj:item'
+                                        src='{{"" | extractValue :this.receivedData.dataRowObj:item}}' width="60"
+                                        height="60" alt="" />
+                                </span>
+                                <span *ngIf="item.dataType != 'image'" class="val">
+                                    {{'' | extractValue :this.receivedData.dataRowObj:item}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

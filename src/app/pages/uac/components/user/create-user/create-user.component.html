@@ -1,0 +1,99 @@
+<form [formGroup]="myform" (ngSubmit)="submitForm()">
+    <div class="container-fluid top-container-create-card mt-1 px-0 mx-0">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 mx-0 px-1">
+                <div class="custom-card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 card-title">{{dataForEdit ? 'Edit' : 'Create'}} Role</div>
+                            <div class="col-md-6 float-right">
+                                <div class="float-end back-button-cntnr" aria-label="Create/Edit">
+                                    <button type="button" class="btn btn-sm btn-custom" (click)="goToView()">
+                                        <i class="fa fa-reply"></i>Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-form-label">First Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="firstName" placeholder="First Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-form-label">Last Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="lastName" placeholder="Last Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-form-label">Mobile No</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="contactNo" placeholder="Contact No" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-form-label">Email Id</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="emailId" placeholder="Email Id" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" formGroupName="role">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-form-label">Role</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control filter-form-control" formControlName="roleId">
+                                            <option [value]='0' selected>Select</option>
+                                            <option *ngFor="let rl of roleList" [value]="rl.roleId">{{rl.roleName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-form-label">Profile Pic</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="file" autocomplete="off" class="form-control"
+                                            (change)="onFileChange($event)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center action-btn">
+                                <button type="button" class="btn btn-sm" (click)="resetForm()"><i
+                                        class="fa fa-refresh"></i>reset</button>
+                                <button type="submit" class="btn btn-sm"><i class="fa fa-paper-plane"></i>{{dataForEdit
+                                    ? 'Update' : 'Submit'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

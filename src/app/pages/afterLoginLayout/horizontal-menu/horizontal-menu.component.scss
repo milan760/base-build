@@ -1,0 +1,417 @@
+// $menubgColor: #0f7595;
+$menubgColor: var(--menu-color);
+$whiteColor: #ffffff;
+$blackColor: #ffffff;
+
+section.header2 {
+    margin-bottom: 5px;
+    padding: 0px 85px 0 95px;
+    box-shadow: 0px 0px 6px rgb(0 0 0 / 67%);
+    box-shadow: 0px 0px 6px rgb(0 0 0 / 67%);
+
+    .navbar-container {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+
+        .navbar {
+
+            padding: 0 0 0 0;
+
+            .left-btn,
+            .right-btn {
+                padding: 0px 5px;
+                font-size: 22px;
+                font-weight: 900;
+                background: var(--darkTheme-color);
+                color: #ffffff;
+                border-radius: 6px;
+                margin: 0px 1px;
+            }
+
+            .logo-part {
+
+                img {
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+            }
+
+            .navbar-toggler {
+                color: $whiteColor;
+                border-color: $menubgColor;
+                background: $menubgColor;
+            }
+
+            .collapse {
+                overflow: hidden;
+                scroll-behavior: smooth;
+                margin: 0px 1% 0 14%;
+            }
+
+            .active-menu {
+                border-bottom: 3px solid $menubgColor;
+
+                .parent-ul .parent-li .parent-li-icon {
+                    color: $menubgColor !important;
+                }
+            }
+
+            .parent-ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                display: inline-flex;
+                position: absolute;
+                right: 86px;
+
+                .parent-li {
+                    .parent-li-content {
+                        cursor: pointer;
+                        padding: 23px 8px;
+                        display: flex;
+                        text-align: center;
+
+                        .parent-li-icon {
+                            font-size: 20px;
+                            font-weight: 500;
+                            color: $menubgColor;
+                        }
+
+                        .parent-li-name {
+                            text-decoration: none;
+                            color: $menubgColor;
+                            text-transform: uppercase;
+                            margin: 0px 6px;
+                            font-family: "Roboto";
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            display: flex;
+                            align-items: center;
+                            white-space: nowrap;
+                        }
+
+                        .parent-li-indicator {
+                            font-size: 17px;
+                            font-weight: 500;
+                            color: $menubgColor;
+                        }
+
+                        &:hover {
+
+                            .parent-li-icon {
+                                color: $menubgColor;
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        .parent-li-indicator {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+            }
+
+            .child-ul {
+                position: absolute;
+                display: none;
+                min-width: 15vw;
+                white-space: nowrap;
+                z-index: 100;
+                border-radius: 5px;
+                padding: 0;
+                list-style: none;
+                box-shadow: 0px 1px 3px rgb(128 128 128 / 38%);
+                background: var(--menu-color);
+                border: 1px solid $whiteColor;
+
+                .child-li {
+                    border-bottom: 1px solid $whiteColor;
+                    position: relative;
+
+                    .child-li-content {
+                        display: flex;
+                        padding: 4px 10px;
+
+                        .child-li-icon {
+                            margin-top: 1px;
+                            font-size: 17px;
+                            color: $whiteColor;
+                        }
+
+                        .child-li-name {
+                            padding: 0px 7px;
+                            text-decoration: none;
+                            font-size: 15px;
+                            color: $whiteColor;
+                        }
+
+                        .child-li-indicator {
+                            font-size: 15px;
+                            margin-top: 3px;
+                            margin-left: auto;
+                            font-weight: 500;
+                            color: $whiteColor;
+                        }
+
+                        &:hover {
+                            font-weight: 600 !important;
+                            background-color: #dbe2e9;
+
+                            .child-li-icon {
+                                color: var(--menu-color);
+                            }
+
+                            .child-li-name {
+                                color: var(--menu-color);
+                            }
+
+                            .child-li-indicator {
+                                color: var(--menu-color);
+                                font-weight: 800 !important;
+                                transform: rotate(90deg) !important;
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+
+            .ul-right {
+                left: 100%;
+                top: 0;
+            }
+
+            .parent-ul .parent-li:hover>.child-ul {
+                display: block;
+            }
+
+            .child-li:hover>.child-ul {
+                display: block;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 993px) {
+
+    // 0 to 993px width required to reflect below classes.
+    .ul-right {
+        left: 17% !important;
+        top: 25px !important;
+    }
+}
+
+@media screen and (max-width: 1028px) {
+
+    // 0 to 1020px width required to reflect below classes.
+    section.header2 {
+        padding: 0px 0px 0 0px;
+
+        .navbar-container {
+            justify-content: flex-start !important;
+            padding: 0 0rem 0 0 !important;
+
+            .navbar {
+                padding: 0rem 0.3rem;
+
+                .logo-container {
+                    height: 60px;
+                    width: 261px;
+                }
+            }
+        }
+    }
+
+    .parent-ul {
+        border: none !important;
+    }
+}
+
+
+// hamburger menu css starts
+.sidebar-btn {
+    padding: 7px 10px 0px 10px;
+    height: 36px;
+    background: $menubgColor;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.sidebar-btn i {
+    color: $whiteColor;
+    font-size: 22px;
+}
+
+.sidebar {
+    position: fixed;
+    width: 300px;
+    height: 496px;
+    top: 115px;
+    // right: -325px;
+    left: -325px;
+    transition: left 0.6s ease;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-y: auto;
+    border-radius: 0px;
+    background: $whiteColor;
+    z-index: 1;
+
+    .sidebar-content-div {
+        display: flex;
+        align-items: center;
+        line-height: 40px;
+
+        .sidebar-content-icon {
+            color: $menubgColor;
+            padding: 0px 0px 0px 10px;
+            width: 35px;
+        }
+    }
+}
+
+.sidebar-show {
+    left: 0px;
+    // right: 0px;
+}
+
+.sidebar-ul {
+    height: 100%;
+    width: 100%;
+    list-style: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+
+    .sidebar-li {
+        cursor: pointer;
+    }
+
+    .sidebar-li.active {
+
+        .sidebar-content-div {
+            background-color: $menubgColor;
+
+            .sidebar-content-icon,
+            .sidebar-content {
+                color: $whiteColor;
+
+                span i {
+                    color: $whiteColor;
+                }
+            }
+        }
+
+    }
+
+    .activeMenu {
+        background-color: $menubgColor !important;
+
+        .sidebar-content-icon,
+        .sidebar-content {
+            color: $whiteColor !important;
+
+            span i {
+                color: $whiteColor !important;
+            }
+        }
+
+    }
+
+    .sidebar-li:hover {
+        .sidebar-content-div {
+            background-color: $whiteColor;
+
+            .sidebar-content-icon,
+            .sidebar-content {
+                color: $menubgColor;
+
+                span i {
+                    color: $menubgColor;
+                }
+            }
+        }
+    }
+}
+
+.sidebar-child-ul {
+    transition: 1.3s;
+    position: static;
+    padding-left: 25px;
+}
+
+.show-child-ul {
+    position: static;
+    display: block;
+    margin: 0px 0px 0px 14px;
+    padding-left: 0px;
+}
+
+.hide-child-ul {
+    position: static;
+    display: none;
+}
+
+.sidebar-child-li {
+    list-style: none;
+    border-top: 1px solid rgba(53, 72, 138, 0.2);
+}
+
+.sidebar-child-li:hover {
+    .sidebar-child-content-div {
+        background-color: #dbe2e9 !important;
+        border: 1px solid $whiteColor;
+
+        .sidebar-child-content-icon,
+        .sidebar-child-content {
+            color: $menubgColor !important;
+        }
+    }
+}
+
+.sidebar-child-li:first-child {
+    border-top: none;
+}
+
+.sidebar-child-li:last-child {
+    border-bottom: none;
+}
+
+.sidebar-child-content-icon {
+    color: $menubgColor;
+    padding: 6px;
+    width: 25px;
+    font-size: 13px;
+}
+
+.sidebar-content {
+    position: relative;
+    color: $menubgColor;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    border-left: 3px solid transparent;
+
+    span {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 22px;
+        transition: transform 0.4s;
+    }
+}
+
+.sidebar-child-content {
+    font-size: 14px;
+    text-decoration: none;
+    color: $menubgColor;
+}
+
+// hamburger menu css ends

@@ -1,0 +1,144 @@
+<form [formGroup]="myform" (ngSubmit)="submitForm(myform.value)">
+    <div class="container-fluid top-container-create-card mt-1 px-0 mx-0">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 mx-0 px-1">
+                <div class="custom-card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 card-title">{{dataForEdit ? 'Edit' : 'Create'}} Resource</div>
+                            <div class="col-md-6 float-right">
+                                <div class="float-end back-button-cntnr" aria-label="Create/Edit">
+                                    <button type="button" class="btn btn-sm btn-custom" (click)="goToView()">
+                                        <i class="fa fa-reply"></i>Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Parent Resource Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" formControlName="parentResourceId">
+                                            <option [value]=null selected>Select</option>
+                                            <option *ngFor="let rid of ResourceList" [value]="rid.resourceId">
+                                                {{rid.name}} {{'(' + rid.description + ')'}}</option>
+                                        </select>
+                                        <!-- <input type="text" autocomplete="off" class="form-control" formControlName="parentResourceId" (change)="getAllResourceId()" /> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Resource Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="name" placeholder="Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Resource Description</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="description" placeholder="Description" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Has SubMenu</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" formControlName="hasSubMenu">
+                                            <option value=null selected>Select</option>
+                                            <option value='true'>Yes</option>
+                                            <option value='false'>No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Icon</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" formControlName="icon">
+                                            <option [value]=null selected>Select</option>
+                                            <option *ngFor="let icon of iconList"
+                                                [value]="icon?.faText ? icon?.faText : icon?.imageName">
+                                                {{icon?.faText ? icon?.faText : icon?.imageName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Level</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="number" autocomplete="off" class="form-control"
+                                            formControlName="level" placeholder="Level" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Path</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="path" placeholder="Path" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Show in Order</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" class="form-control"
+                                            formControlName="orderIn" placeholder="Order" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" formGroupName="status">
+                                <div class="form-group row">
+                                    <div class="col-md-4"> <label class="col-lbl">Status</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" formControlName="statusId">
+                                            <option value=null selected>Select</option>
+                                            <option value='1'>Active</option>
+                                            <option value='0'>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center action-btn">
+                                <button type="button" class="btn btn-sm" (click)="resetForm()"><i
+                                        class="fa fa-refresh"></i>reset</button>
+                                <button type="submit" class="btn btn-sm"><i class="fa fa-paper-plane"></i>{{dataForEdit
+                                    ? 'Update' : 'Submit'}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

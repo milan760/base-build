@@ -1,0 +1,233 @@
+<!-- ********************** STARTS ******** SEARCHING AND FILTER ***************************** -->
+<div *ngIf="tableComponentObj.isActive.searchDropdown || tableComponentObj.isActive.searchfield"
+    class="row filter-contnr">
+    <div *ngIf="tableComponentObj.isActive.searchDropdown" class="col-md-6">
+        <div class="filter-label">Field </div>
+        <div class="input-group input-group-sm">
+            <select class="form-control filter-form-control" (change)="searchKeyChange($event)">
+                <option value="" selected>--select--</option>
+                <option *ngFor="let option of tableComponentObj?.headerAndBodyLoopers" [value]="option.TDkey">
+                    {{option.THname}}</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="tableComponentObj.isActive.searchfield" class="col-md-6">
+        <div class="filter-label">Search </div>
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control filter-form-control" placeholder="search" [(ngModel)]="searchValue">
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="justify-content-end d-flex mr-0">
+            <div class="btn-group action-btn">
+                <button class="btn bg-white btn-sm" type="button" (click)="resetBtnClicked()"><i
+                        class="fa fa-refresh"></i>Reset</button>
+                <button class="btn bg-white btn-sm" type="button" (click)="filterBtnClicked()"><i
+                        class="fa fa-filter"></i>Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ********************** ENDS ******** SEARCHING AND FILTER ***************************** -->
+
+<!-- ********************** STARTS ******** TABLE WITH SHOW ENTRIES AND UPPER BUTTONS ***** -->
+<div class="m-0 p-0" [ngClass]="isExpand ? 'fullscreen' : ''">
+
+    <!-- ***** STARTS ******** SHOW ENTRIES AND UPPER BUTTONS ***** -->
+    <div *ngIf="tableComponentObj.isActive.showEntries || tableComponentObj.isActive.upperButtons" class="row">
+        <div class="col-md-6 btn-group" style="font-size: 13px;">
+            <ng-container *ngIf="tableComponentObj.isActive.showEntries">
+                <span style="margin: 7px 0px;">Show</span>
+                <div class="col-sm-3">
+                    <!-- <select class="form-control" style="height: 32px; width: 50px; padding: 0px 0px; font-size: 13px;" -->
+                    <select class="custom-dropdown" (change)="showEntriesChange($event)">
+                        <option *ngFor="let option of tableComponentObj.pgSizeOptions" [value]="option">{{option}}
+                        </option>
+                    </select>
+                    <!-- <select>
+                        <option value='10'>10</option>
+                        <option value='20'>20</option>
+                        <option value='30'>30</option>
+                    </select> -->
+                </div>
+            </ng-container>
+        </div>
+
+        <div *ngIf="tableComponentObj.isActive.upperButtons" class="col-md-6">
+            <div class="justify-content-end d-flex mr-0">
+                <div class="btn-group action-btn">
+                    <div class="m-0 p-0" *ngFor="let button of tableComponentObj.upperButtons">
+                        <button *ngIf="button.isActive" class="{{button.class}}" [ngbTooltip]="button.title"
+                            placement="{{button.placement}}" type="button"
+                            (click)="emitToParent(button.title, {}, 'upperBtnClicked')">
+                            <span *ngIf="button.btnName !== ''"> {{button.btnName}} </span>&nbsp;
+                            <i class="{{button.icon}}"></i>
+                        </button>
+                    </div>
+                    <div class="m-0 p-0">
+                        <button [title]="isExpand ? 'Collapse' : 'Expand'" type="button" placement="top"
+                            class="expand-btn btn-sm btn-custom-action" (click)="isExpand = (!isExpand)">
+                            <i [ngClass]="isExpand ? 'fa fa-compress' : 'fa fa-expand'" aria-hidden="true"> </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** ENDS ******** SHOW ENTRIES AND UPPER BUTTONS ***** -->
+
+    <!-- ***** STARTS ******** ADVANCED FUNCTIONALITY TABLE ***** -->
+    <div class="row mt-1">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-head">
+                        <tr *ngIf="tableComponentObj.headerAndBodyLoopers.length !== 0">
+                            <ng-container *ngFor="let hObj of tableComponentObj.headerAndBodyLoopers, let i = index;">
+                                <th *ngIf="hObj.isTHactive" [attr.rowspan]="hObj.thRowspan"
+                                    [attr.colspan]="hObj.thColspan" class={{hObj.THclass}}>
+                                    <div class="row p-0 m-0 justify-content-center d-inline"
+                                        (click)="tHeadClicked(hObj.TDkey, hObj, hObj.isSortNeeded)"> {{hObj.THname}}
+                                        <span *ngIf="hObj.isSortNeeded === 1" [ngSwitch]="true"
+                                            class="m-0 py-0 pl-1 pr-0 sort-symbol-color">
+                                            <i *ngSwitchCase="sortByColumTDkey !== hObj.TDkey"
+                                                class="{{hObj.defaultIcon}} text-right" aria-hidden="true"></i>
+                                            <i *ngSwitchCase="sortByColumTDkey === hObj.TDkey && isAscending"
+                                                class="{{hObj.ascIcon}} text-right" aria-hidden="true"></i>
+                                            <i *ngSwitchCase="sortByColumTDkey === hObj.TDkey && !isAscending"
+                                                class="{{hObj.descIcon}} text-right" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                            </ng-container>
+                        </tr>
+                        <tr *ngIf="tableComponentObj.secondHeaderRow.length !== 0">
+                            <th *ngFor="let hObj of tableComponentObj.secondHeaderRow, let i = index;"
+                                [attr.rowspan]="hObj.thRowspan" [attr.colspan]="hObj.thColspan" class={{hObj.THclass}}>
+                                <div *ngIf="hObj.isTHactive" class="row p-0 m-0 justify-content-center d-inline">
+                                    {{hObj.THname}} </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="tableComponentObj.isActive.pagination">
+                            <tr *ngFor="let trItem of tableComponentObj.tBodyList | paginate: { id: 'table', itemsPerPage: this.paginationObject?.pageSize, 
+								currentPage: this.paginationObject?.pageNumber, totalItems: tableComponentObj.totalRecords }; let i = index;">
+
+                                <ng-container
+                                    *ngFor="let obj of tableComponentObj.headerAndBodyLoopers; let j = index;">
+
+                                    <ng-container *ngIf="obj.isTDactive">
+                                        <!-- <td [attr.rowspan]="obj.tdRowspan" [attr.colspan]="obj.tdColspan" -->
+                                        <td class={{obj.TDclass}}
+                                            (click)="emitToParent(obj.TDkey, trItem, 'tdValueClicked', i)">
+                                            <span class="{{obj.spanClass}}">
+                                                <ng-container *ngIf="obj.TDdataType == 'select'">
+                                                    <input type="checkbox" name="selectData">&nbsp;check/uncheck
+                                                </ng-container>
+                                                <ng-container *ngIf="obj.TDdataType == 'slno'">
+                                                    {{tableComponentObj.pageNumber && tableComponentObj.selectedPageSize
+                                                    ?
+                                                    ((tableComponentObj.pageNumber-1)*tableComponentObj.selectedPageSize
+                                                    +i+1) : i+1}}
+                                                </ng-container>
+                                                <ng-container *ngIf="obj.TDdataType == 'image'">
+                                                    <img src='{{"" | extractValue :trItem:obj}}' width="40" height="40"
+                                                        alt="" />
+                                                </ng-container>
+                                                <ng-container *ngIf="!['slno', 'image'].includes(obj.TDdataType)">
+                                                    {{'' | extractValue :trItem:obj}}
+                                                </ng-container>
+                                            </span>
+                                        </td>
+                                    </ng-container>
+
+                                </ng-container>
+
+                                <td *ngFor="let button of tableComponentObj.ActionButtons"
+                                    [attr.rowspan]="button.tdRowspan" [attr.colspan]="button.tdColspan"
+                                    style="padding: 5px !important;text-align: center;">
+                                    <div class="btn-group" role="group">
+                                        <button class="{{button.class}}" [ngbTooltip]="button.title"
+                                            placement="{{button.placement}}" type="button"
+                                            (click)="emitToParent(button.title, trItem, 'tdActionBtnClicked', i)">
+                                            <i class="{{button.icon}}"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!tableComponentObj.isActive.pagination">
+                            <tr *ngFor="let trItem of tableComponentObj.tBodyList; let i = index;">
+
+                                <ng-container
+                                    *ngFor="let obj of tableComponentObj.headerAndBodyLoopers; let j = index;">
+
+                                    <ng-container *ngIf="obj.isTDactive">
+                                        <!-- <td [attr.rowspan]="trItem.tdRowspan" [attr.colspan]="trItem.tdColspan" -->
+                                        <td class={{obj.TDclass}}
+                                            (click)="emitToParent(obj.TDkey, trItem, 'tdValueClicked', i)">
+                                            <span class="{{obj.spanClass}}">
+                                                <ng-container *ngIf="obj.TDdataType == 'select'">
+                                                    <input type="checkbox" name="selectData">&nbsp;check/uncheck
+                                                </ng-container>
+                                                <ng-container *ngIf="obj.TDdataType == 'slno'">
+                                                    {{tableComponentObj.pageNumber && tableComponentObj.selectedPageSize
+                                                    ?
+                                                    ((tableComponentObj.pageNumber-1)*tableComponentObj.selectedPageSize
+                                                    +i+1) : i+1}}
+                                                </ng-container>
+                                                <ng-container *ngIf="obj.TDdataType == 'image'">
+                                                    <img *ngIf=' "" | extractValue :trItem:obj'
+                                                        src='{{"" | extractValue :trItem:obj}}' width="40" height="40"
+                                                        alt="" />
+                                                </ng-container>
+                                                <ng-container *ngIf="!['slno', 'image'].includes(obj.TDdataType)">
+                                                    {{'' | extractValue :trItem:obj}}
+                                                </ng-container>
+                                            </span>
+                                        </td>
+                                    </ng-container>
+
+                                </ng-container>
+
+                                <td *ngFor="let button of tableComponentObj.ActionButtons"
+                                    [attr.rowspan]="button.tdRowspan" [attr.colspan]="button.tdColspan"
+                                    style="padding: 5px !important;text-align: center;">
+                                    <div class="btn-group" role="group">
+                                        <button class="{{button.class}}" [ngbTooltip]="button.title"
+                                            placement="{{button.placement}}" type="button"
+                                            (click)="emitToParent(button.title, trItem, 'tdActionBtnClicked', i)">
+                                            <i class="{{button.icon}}"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <div class="text-center" *ngIf="tableComponentObj.tBodyList?.length === 0"> No Data Found </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** ENDS ******** ADVANCED FUNCTIONALITY TABLE ***** -->
+
+    <!-- ***** STARTS ******** pagination and total records ***** -->
+    <div class="row">
+        <div *ngIf="tableComponentObj.isActive.totalRecords"
+            class="text-center col-md-3 col-sm-6 text-left total-records">
+            TOTAL RECORDS:&nbsp;<b>{{tableComponentObj.totalRecords}}</b>
+        </div>
+        <div *ngIf="tableComponentObj.isActive.totalRecords"
+            class="text-center col-md-3 col-sm-6 text-left total-pages">
+            PAGE: {{this.paginationObject.pageNumber}} OF&nbsp;<b>{{tableComponentObj.totalPages}}</b> Pages
+        </div>
+        <div *ngIf="tableComponentObj.isActive.pagination"
+            class="text-center col-md-6 col-sm-12 align-self-right pagination">
+            <pagination-controls id='table' [maxSize]="5" (pageChange)="pageChange($event)"></pagination-controls>
+        </div>
+    </div>
+    <!-- ***** ENDS ******** pagination and total records ***** -->
+
+</div>
+<!-- ********************** ENDS ******** TABLE WITH SHOW ENTRIES AND UPPER BUTTONS ***** -->
