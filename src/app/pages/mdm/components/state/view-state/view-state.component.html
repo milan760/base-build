@@ -1,0 +1,18 @@
+<div class="container-fluid top-container-view-card mt-1 px-0 mx-0 mb-5">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 mx-0 px-1">
+            <div class="custom-card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 card-title">{{StateComponentObject.cardTitle}}</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <app-custom-table [tableComponentObject]="StateComponentObject"
+                        (emitFromCommonTableToParent)="receiveEmittedDataFromCommonTbl($event)">
+                    </app-custom-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

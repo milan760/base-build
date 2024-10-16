@@ -15,6 +15,7 @@ export class HttpClientService {
     private clientErrorHandler: ErrorHandlerService
   ) { }
 
+  // Call API without Access Token
   getCaptchaWithCaptchaKeyHeader(url: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'applicant/json' }),
@@ -41,10 +42,10 @@ export class HttpClientService {
         'captchaKey': captchaKey
       }),
     };
-    console.log('dafdssssssssdfggggggggggggggggggggggggggggggggggggggggggs')
     return this.http.post(url, data, options).pipe(catchError(this.clientErrorHandler.handleError));
   }
 
+  // Call API with Access Token
   post(url: string, data: object, opt?: object): Observable<any> {
     const accessToken = AppConstants.AUTHORIZATION_HEADER;
     const HEADERS = new HttpHeaders()
@@ -65,35 +66,29 @@ export class HttpClientService {
       headers,
       params: {}
     };
-    console.log('data..................>>>>', data);
     return this.http.post(url, data, options).pipe(catchError(this.clientErrorHandler.handleError));
   }
 
   get(url: string, opt?: object): Observable<any> {
-    // console.log('rGId', this.getRgId().toString());
     const accessToken = AppConstants.AUTHORIZATION_HEADER ? AppConstants.AUTHORIZATION_HEADER : '';
-    // console.log(accessToken);
     const HEADERS = new HttpHeaders()
-        .set('Content-Type', 'application/json')
-        // .set('x-auth', accessToken)
-        .set('Authorization', accessToken);
-    // .set('rGId', this.getRgId().toString());
+      .set('Content-Type', 'application/json')
+      .set('Authorization', accessToken);
     const options = opt ? opt : {
-        headers: HEADERS,
-        params: {}
+      headers: HEADERS,
+      params: {}
     };
-    // console.log(options);
     return this.http.get(url, options).pipe(catchError(this.clientErrorHandler.handleError));
-}
+  }
 
-put(url: string, data: object, opt?: object): Observable<any> {
-  const accessToken = AppConstants.AUTHORIZATION_HEADER;
-  const headers = new HttpHeaders()
+  put(url: string, data: object, opt?: object): Observable<any> {
+    const accessToken = AppConstants.AUTHORIZATION_HEADER;
+    const headers = new HttpHeaders()
       .set('Content-Type', 'application/json; charset=utf-8')
       .set('Authorization', accessToken)
-  const options = opt ? opt : {
+    const options = opt ? opt : {
       headers,
-  };
-  return this.http.put(url, data, options);
-}
+    };
+    return this.http.put(url, data, options);
+  }
 }

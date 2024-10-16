@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SchoolComponent } from './school.component';
+import { ViewDistrictComponent } from './view-district.component';
 
-describe('SchoolComponent', () => {
-  let component: SchoolComponent;
-  let fixture: ComponentFixture<SchoolComponent>;
+describe('ViewDistrictComponent', () => {
+  let component: ViewDistrictComponent;
+  let fixture: ComponentFixture<ViewDistrictComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SchoolComponent]
+      imports: [ViewDistrictComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SchoolComponent);
+    fixture = TestBed.createComponent(ViewDistrictComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

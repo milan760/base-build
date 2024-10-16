@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlockComponent } from './block.component';
+import { ViewStateComponent } from './view-state.component';
 
-describe('BlockComponent', () => {
-  let component: BlockComponent;
-  let fixture: ComponentFixture<BlockComponent>;
+describe('ViewStateComponent', () => {
+  let component: ViewStateComponent;
+  let fixture: ComponentFixture<ViewStateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BlockComponent]
+      imports: [ViewStateComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(BlockComponent);
+    fixture = TestBed.createComponent(ViewStateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,28 @@
-<!-- <p>error-display works!</p> -->
-<div style="background-color: white; border-radius: 5%; text-align: center;">
-    <img src="../../../../assets/afterLoginImages/headerImages/work.png" style="width: 200px; height: 150px;" />
+<div class="row error-page">
+    <div class="col-md-12">
+        <div class="row error-content mt-5">
+            <div class="col-md-12">
+                <img src="../../../assets/afterLoginImages/errorEmoji.jpg" class="image">
+            </div>
+            <div class="col-md-12">
+                <div class="error-code">{{errObj?.errCode}}</div>
+            </div>
+            <div class="col-md-12">
+                <div class="error-name">Error Occured <span><i class="fa fa-exclamation-triangle"
+                            aria-hidden="true"></i></span> - <span>{{errObj?.errName}}</span></div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <div class="error-desc mx-auto">{{errObj?.errDesc}}</div>
+            </div>
+            <div class="col-md-12 mt-3 error-backBtn">
+                <button type="button" class="btn btn-warning" (click)="goTo()"><i
+                        class="fa fa-chevron-left"></i>&nbsp;{{errObj?.buttonMsg}}</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<!-- <div style="background-color: white; border-radius: 5%; text-align: center;">
+    <img src="../../../../assets/afterLoginImages/headerImages/work.png" style="width: 200px; height: 150px;" />
+</div> -->

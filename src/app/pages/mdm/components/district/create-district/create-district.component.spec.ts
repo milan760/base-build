@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IconSetupComponent } from './icon-setup.component';
+import { CreateDistrictComponent } from './create-district.component';
 
-describe('IconSetupComponent', () => {
-  let component: IconSetupComponent;
-  let fixture: ComponentFixture<IconSetupComponent>;
+describe('CreateDistrictComponent', () => {
+  let component: CreateDistrictComponent;
+  let fixture: ComponentFixture<CreateDistrictComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IconSetupComponent]
+      imports: [CreateDistrictComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(IconSetupComponent);
+    fixture = TestBed.createComponent(CreateDistrictComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

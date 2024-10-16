@@ -1,0 +1,45 @@
+.error-page {
+    height: 100vh;
+    border: 2px dotted darkblue;
+
+    .error-content {
+        .col-md-12 {
+            text-align: center;
+        }
+
+        img {
+            background-color: #cccccc;
+            height: 40vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .error-code {
+            font-size: 60px;
+            color: #000000;
+            font-weight: 900;
+            letter-spacing: 7px;
+        }
+
+        .error-name {
+            .fa {
+                font-size: 30px;
+                color: #fbc228;
+            }
+
+            font-size: 25px;
+            color: #000000;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .error-desc {
+            font-size: 23px;
+            color: #000000;
+            font-weight: 500;
+            width: 70%;
+        }
+    }
+}

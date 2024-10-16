@@ -54,7 +54,6 @@ export class SigninComponent {
 
   public createLoginFormInstance() {
     this.loginForm = this.fb.group({
-      // examManagementId: ['', Validators.compose([Validators.required])],
       username: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       captcha: ['', Validators.compose([Validators.required])]
@@ -63,7 +62,6 @@ export class SigninComponent {
 
   ngOnInit() {
     this.getCaptcha();
-    // this.getAllExamConductingAgency();
   }
 
   public getCaptcha() {
@@ -81,7 +79,6 @@ export class SigninComponent {
         }
       },
       error: (err) => {
-        console.error('Error fetching captcha:', err);
         this.spinner.hide();
       },
       complete: () => {
@@ -112,7 +109,6 @@ export class SigninComponent {
         }
       },
       error: (err) => {
-        console.error('Error fetching captcha:', err);
         this.spinner.hide();
       },
       complete: () => {
@@ -130,17 +126,18 @@ export class SigninComponent {
       let encPassword = null;
       encPassword = this.encryptService.encryptPasswordWithSalt(data.password, data.captcha);
       const loginData: object = {
-        // 'examManagementId': Number(data.examManagementId),
         'username': data.username,
         'password': encPassword,
         'captcha': data.captcha
       };
       this.spinner.show();
-      console.log('fdsgssdf');
       this.authService.login(loginData, this.captchaKey).subscribe({
         next: (res: any) => {
           if (res) {
-            console.log(res);
+            if (res.status === 0) {
+              this.toastr.infoToastr(res.statusDesc);
+              return;
+            }
             this.storageService.setSessionAttribute('isLoggedIn', true);
             this.storageService.setLocalStorageByAttribute('accessTokenDetails', res);
             AppConstants.ACCESS_DETAILS = JSON.parse(localStorage.getItem('accessTokenDetails') || '{}');
@@ -151,7 +148,6 @@ export class SigninComponent {
           }
         },
         error: (err) => {
-          console.error('Error fetching captcha:', err);
           this.spinner.hide();
         },
         complete: () => {

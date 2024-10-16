@@ -35,7 +35,7 @@ export class ViewResourceComponent {
       { thRowspan: 1, thColspan: 2, tdRowspan: 1, tdColspan: 1, isTHactive: 1, isTDactive: 0, THclass: 'text-center text-nowrap', TDclass: 'text-center text-nowrap', spanClass: "", isSortNeeded: 0, defaultIcon: 'fa fa-sort', descIcon: 'fa fa-sort-desc', ascIcon: 'fa fa-sort-asc', THname: 'Action', TDkey: 'action', TDdataType: 'string', }
     ],
     secondHeaderRow: [],
-    isActive: { searchDropdown: 0, searchfield: 0, showEntries: 0, upperButtons: 1, pagination: 0, totalRecords: 0, pageDescription: 0 },
+    isActive: { searchDropdown: 0, searchfield: 0, showEntries: 1, upperButtons: 1, pagination: 1, totalRecords: 1, pageDescription: 0 },
     upperButtons: [
       { isActive: 1, class: 'btn btn-sm btn-custom-action', placement: 'top', title: 'Create', icon: 'fa fa-plus', btnName: 'Create' },
     ],
@@ -63,7 +63,6 @@ export class ViewResourceComponent {
   }
 
   public receiveEmittedDataFromCommonTbl(eventObj: any) {
-    console.log(eventObj);
 
     switch (eventObj.clickedRemark) {
       case 'upperBtnClicked':
@@ -76,10 +75,6 @@ export class ViewResourceComponent {
         }
         break;
       case 'pagination':
-        // eventObj.dataValueObject.isOrderRequired = this.paginatioObj.isOrderRequired;
-        // eventObj.dataValueObject.isAscending = this.paginatioObj.isAscending;
-        // eventObj.dataValueObject.orderField = this.paginatioObj.orderField;
-        // this.getResourceList(eventObj.dataValueObject);
         this.getResourceList();
         break;
     }
@@ -87,7 +82,6 @@ export class ViewResourceComponent {
 
   public ViewResourceModal(item?: any) {
     if (item) {
-      console.log('item', item);
       this.sendDataToFieldsetLegendKeyValue = {
         whichArrayToLoop: 'Resource',
         dataRowObj: item
@@ -107,7 +101,6 @@ export class ViewResourceComponent {
         if (res) {
           this.ResourceComponentObject = { ... this.ResourceComponentObject };
           this.ResourceComponentObject.tBodyList = res;
-          console.log(this.ResourceComponentObject.tBodyList);
         } else {
           this.toastr.infoToastr("no data found");
         }
@@ -121,8 +114,5 @@ export class ViewResourceComponent {
       }
     })
   }
-}
-function provideBsModalService(): import("@angular/core").Provider {
-  throw new Error('Function not implemented.');
 }
 

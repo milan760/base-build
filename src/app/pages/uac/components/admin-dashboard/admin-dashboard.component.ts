@@ -130,7 +130,7 @@ export class AdminDashboardComponent {
   }
 
   public getProfileDetails() {
-    this.spinner.show();
+    // this.spinner.show();
     // this.mdmservice.profileDetails().subscribe(
     //   res => {
     //     if (res) {

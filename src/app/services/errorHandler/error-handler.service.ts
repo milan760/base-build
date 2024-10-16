@@ -2,51 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 
-export const errorMsgs = {
-  '0': {
-    errCode: 0,
-    errName: 'Failed To Load Response',
-    errDesc: 'Sorry, server is not responding at this movement, Pleasse try after sometime',
-    buttonMsg: 'Back',
-    redirectLink: ''
-  },
-  '401': {
-    errCode: 401,
-    errName: 'Access Denied',
-    errDesc: 'Sorry, You are not authorized! , Your requested couldn\'t be authenticated',
-    buttonMsg: 'Login',
-    redirectLink: '/landing-page/login'
-  },
-  '403': {
-    errCode: 403,
-    errName: 'Access forbidden',
-    errDesc: 'Sorry, Access to the requested resource is forbidden!, You don\'t have permission to access this page',
-    buttonMsg: 'Back',
-    redirectLink: ''
-  },
-  '404': {
-    errCode: 404,
-    errName: 'Page Not Found',
-    errDesc: 'Sorry, We can\'t find that page! , Either something went wrong or page doesn\'t exist anymore',
-    buttonMsg: 'Back',
-    redirectLink: ''
-  },
-  '500': {
-    errCode: 500,
-    errName: 'Internal Server Error',
-    errDesc: 'Sorry, We had some technical problem! , Either something went wrong or some problem occured during last operation',
-    buttonMsg: 'Back',
-    redirectLink: ''
-  },
-  'default': {
-    errCode: 'Error',
-    errName: 'Unknown Error',
-    errDesc: 'Something went wrong',
-    buttonMsg: 'Login',
-    redirectLink: ''
-  }
-};
-
 @Injectable({
   providedIn: 'root'
 })
