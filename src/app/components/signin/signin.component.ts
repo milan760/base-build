@@ -65,6 +65,7 @@ export class SigninComponent {
   }
 
   public getCaptcha() {
+    console.log('inside getCaptcha method');
     this.spinner.show();
     this.authService.getCaptchaWithCaptchaKeyHeader().subscribe({
       next: (response: any) => {
@@ -136,6 +137,12 @@ export class SigninComponent {
           if (res) {
             if (res.status === 0) {
               this.toastr.infoToastr(res.statusDesc);
+              let captcha: any = this.loginForm.get('captcha');
+              if (captcha) {
+                captcha = '';
+              }
+              console.log('captcha', captcha);
+              this.getCaptcha();
               return;
             }
             this.storageService.setSessionAttribute('isLoggedIn', true);

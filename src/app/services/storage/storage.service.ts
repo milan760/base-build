@@ -12,7 +12,7 @@ export class StorageService {
     private encryptService: EncryptionService
   ) { }
 
-  public setSessionAttribute(attrName: any, data: any) {
+  setSessionAttribute(attrName: any, data: any) {
     this.getSessionStorageDetails();
     const DATA: any = {}; DATA[attrName] = this.encryptService.encodeKeyValue(JSON.stringify(data), this.getSessionId());
     Object.assign(this.AppStorage, DATA);
@@ -54,18 +54,18 @@ export class StorageService {
     this.setSessionStorage(DATA);
   }
 
-  public setLocalStorageByAttribute(attrName: string, value: any) {
+  setLocalStorageByAttribute(attrName: string, value: any) {
     this.removeIfExistsLocalStorageByAttribute(attrName);
     localStorage.setItem(attrName, JSON.stringify(value));
   }
 
-  public removeIfExistsLocalStorageByAttribute(attrName: string) {
+  removeIfExistsLocalStorageByAttribute(attrName: string) {
     if (localStorage.getItem(attrName)) {
       localStorage.removeItem(attrName);
     }
   }
 
-  public getAccessDetailsFromLocalStorage(parameter?: string) {
+  getAccessDetailsFromLocalStorage(parameter?: string) {
     const accessTokenDetailsString = localStorage.getItem('accessTokenDetails');
     const ACCESS_TOKEN_DETAILS = accessTokenDetailsString ? JSON.parse(accessTokenDetailsString) : null;
     if (ACCESS_TOKEN_DETAILS && parameter && ACCESS_TOKEN_DETAILS[parameter]) {
@@ -75,12 +75,16 @@ export class StorageService {
     }
   }
 
-  public clearAllLocalStorage() {
+  clearAllLocalStorage() {
     localStorage.clear();
   }
 
-  public getLocalStorageByAttribute(attrName: string) {
+  getLocalStorageByAttribute(attrName: string) {
     const item = localStorage.getItem(attrName);
     return item ? JSON.parse(item) : null;
+  }
+
+  getRoleFromLocalStorage(): string | null {
+    return this.getAccessDetailsFromLocalStorage('roleCode');
   }
 }

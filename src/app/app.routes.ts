@@ -5,7 +5,9 @@ import { ErrorDisplayComponent } from './components/error-display/error-display.
 export const routes: Routes = [
     { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
     { path: 'landing-page', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) },
-    { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
+    {
+        path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+    },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'error', component: ErrorDisplayComponent },
     { path: '**', component: ErrorDisplayComponent },

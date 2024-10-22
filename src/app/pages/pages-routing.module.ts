@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { ChangePasswordComponent } from './afterLoginLayout/change-password/change-password.component';
 import { UserProfileComponent } from './afterLoginLayout/user-profile/user-profile.component';
+import { authGuard } from '../guard/auth.guard';
+import { Roles } from '../model/roles.enum';
 
 const routes: Routes = [
   {
@@ -10,11 +12,18 @@ const routes: Routes = [
     children: [
       {
         path: 'uac',
-        loadChildren: () => import('./uac/uac.module').then(m => m.UacModule)
+        loadChildren: () => import('./uac/uac.module').then(m => m.UacModule),
+        canActivate: [authGuard], data: { roles: [Roles.ROLE_ORGADMIN] }
       },
       {
         path: 'mdm',
-        loadChildren: () => import('./mdm/mdm.module').then(m => m.MdmModule)
+        loadChildren: () => import('./mdm/mdm.module').then(m => m.MdmModule),
+        canActivate: [authGuard], data: { roles: [Roles.ROLE_ORGADMIN] }
+      },
+      {
+        path: 'dynamic-form',
+        loadChildren: () => import('./dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule),
+        canActivate: [authGuard], data: { roles: [Roles.ROLE_ORGADMIN] }
       }
     ]
   },

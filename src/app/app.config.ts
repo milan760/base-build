@@ -2,25 +2,31 @@ import { ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/c
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ErrorHandlerService } from './services/errorHandler/error-handler.service';
 import { InterceptService } from './services/customInterceptor/intercept.service';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true },
+    JwtHelperService,
     provideRouter(routes),
-    // provideHttpClient(),
-    provideHttpClient(
-      withInterceptors([InterceptService])
-    ),
+    provideAnimations(),
     importProvidersFrom(
       ToastrModule.forRoot(),
       BrowserAnimationsModule,
     ),
-    provideAnimations(),
     { provide: ErrorHandler, useClass: ErrorHandlerService },
+    {
+      provide: JWT_OPTIONS,
+      useValue: {
+        tokenGetter: () => localStorage.getItem('token')
+      }
+    },
+    provideHttpClient(
+      withInterceptors([InterceptService])
+    ),
   ]
 };
