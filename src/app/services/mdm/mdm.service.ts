@@ -30,6 +30,9 @@ export class MdmService {
   public updateProfile(data: any) {
     return this.httpClient.post(this.PROFILE_URL + "updateProfileDetails", data);
   }
+  public createPassword(data: any) {
+    return this.httpClient.post(this.PROFILE_URL + "changePassword", data);
+  }
 
   // Resource api
   public getAllResourceByAuthenticatingRole() {
@@ -38,4 +41,10 @@ export class MdmService {
   public getResourceDetailsByRoleName() {
     return this.httpClient.get(this.RESOURCE_REGISTER_URL + "getResourceDetailsByRoleName");
   }
+
+
+
+  // public createOrUpdateUser(data: any) {
+  //   return this.httpClient.postFD(AppConstants.BASE_API_URL + "profiles/updateProfileDetails", data);
+  // }
 }
