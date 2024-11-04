@@ -30,9 +30,22 @@ section.header2 {
 
             .logo-part {
 
-                img {
-                    background-position: center;
-                    background-repeat: no-repeat;
+                .logo-div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+
+                    img {
+                        height: 60px;
+                        width: 60px;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    }
+
+                    .logo-text {
+                        width: 341px;
+                    }
                 }
             }
 
@@ -205,6 +218,7 @@ section.header2 {
         left: 17% !important;
         top: 25px !important;
     }
+
 }
 
 @media screen and (max-width: 1028px) {
@@ -252,7 +266,7 @@ section.header2 {
     position: fixed;
     width: 300px;
     height: 496px;
-    top: 115px;
+    top: 106px;
     // right: -325px;
     left: -325px;
     transition: left 0.6s ease;
