@@ -143,15 +143,17 @@ export class SigninComponent {
               }
               console.log('captcha', captcha);
               this.getCaptcha();
-              return;
+              this.loginForm.controls['captcha'].patchValue('');
+            } else {
+              this.storageService.setSessionAttribute('isLoggedIn', true);
+              this.storageService.setLocalStorageByAttribute('accessTokenDetails', res);
+              AppConstants.ACCESS_DETAILS = JSON.parse(localStorage.getItem('accessTokenDetails') || '{}');
+              this.spinner.hide();
+              if ([Roles.ROLE_ORGADMIN].includes(res?.roleCode)) {
+                this.router.navigate(['/pages/uac/dashboard']);
+              }
             }
-            this.storageService.setSessionAttribute('isLoggedIn', true);
-            this.storageService.setLocalStorageByAttribute('accessTokenDetails', res);
-            AppConstants.ACCESS_DETAILS = JSON.parse(localStorage.getItem('accessTokenDetails') || '{}');
-            this.spinner.hide();
-            if ([Roles.ROLE_ORGADMIN].includes(res?.roleCode)) {
-              this.router.navigate(['/pages/uac/dashboard']);
-            }
+
           }
         },
         error: (err) => {
