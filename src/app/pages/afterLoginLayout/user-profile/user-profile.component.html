@@ -6,14 +6,16 @@
                     <div class="panel-body">
                         <div class="text-center">
                             <div class="profile-picture">
-                                <img class="prof-img"
-                                    src="../../../../assets/afterLoginImages/headerImages/profile.png" />
+                                <img class="prof-img" [src]="profileImage" />
+                                <!-- <img class="prof-img"
+                                    src="../../../../assets/afterLoginImages/headerImages/profile.png" /> -->
                             </div>
-                            <h2 class="name">Muhammad Ilyas</h2>
-                            <h3 class="username">fastroware&#64;gmail.com</h3>
-                            <p class="tagline">7417417410</p>
-                            <p class="description">Masih belajar CSS dan HTML.</p>
-                            <button type="button" class="my-btn">Edit Profile</button>
+                            <h2 class="username">{{profileData?.userName}}</h2>
+                            <h3 class="name">{{profileData?.firstName ? profileData?.firstName : ''}}
+                                {{profileData?.lastName ? profileData?.lastName : ''}}</h3>
+                            <p class="mobileNo">{{profileData?.contactNo}}</p>
+                            <p class="emailId">{{profileData?.emailId}}</p>
+                            <button type="button" class="my-btn" (click)="ViewModal()">Edit Profile</button>
                         </div>
                     </div>
                 </div>
@@ -22,16 +24,106 @@
     </div>
 </div>
 
+<div bsModal #editProfileModal="bs-modal" class="modal fade" id="exampleModal" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit profile</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="hideModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="myForm" (ngSubmit)="submitForm()">
+                    <div class="container-fluid top-container-create-card mt-1 px-0 mx-0">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 mx-0 px-1">
+                                <div class="row">
+                                    <div class="col-md-6 my-field">
+                                        <div class="form-group row">
+                                            <div class="col-md-4"> <label class="col-form-label">First
+                                                    Name</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" autocomplete="off" class="form-control"
+                                                    formControlName="firstName" placeholder="First Name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-field">
+                                        <div class="form-group row">
+                                            <div class="col-md-4"> <label class="col-form-label">Last
+                                                    Name</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" autocomplete="off" class="form-control"
+                                                    formControlName="lastName" placeholder="Last Name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-field">
+                                        <div class="form-group row">
+                                            <div class="col-md-4"> <label class="col-form-label">Mobile
+                                                    No</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" autocomplete="off" class="form-control"
+                                                    formControlName="contactNo" placeholder="Contact No" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-field">
+                                        <div class="form-group row">
+                                            <div class="col-md-4"> <label class="col-form-label">Email
+                                                    Id</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" autocomplete="off" class="form-control"
+                                                    formControlName="emailId" placeholder="Email Id" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-field" formGroupName="role">
+                                        <div class="form-group row">
+                                            <div class="col-md-4"> <label class="col-form-label">Role</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select class="form-control filter-form-control"
+                                                    formControlName="roleId">
+                                                    <option [value]='0' selected>Select</option>
+                                                    <option *ngFor="let rl of roleList" [value]="rl.roleId">
+                                                        {{rl.roleName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-field">
+                                        <div class="form-group row">
+                                            <div class="col-md-4"> <label class="col-form-label">Profile
+                                                    Pic</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="file" autocomplete="off" class="form-control"
+                                                    (change)="onFileChange($event)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-<!-- <div class="container">
-    <div class="card">
-        <div class="profile-picture">
-            <img class="prof-img" src="../../../../assets/afterLoginImages/headerImages/profile.png" />
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-center action-btn">
+                                        <button type="button" class="btn btn-sm" (click)="resetForm()"><i
+                                                class="fa fa-refresh"></i>reset</button>
+                                        <button type="submit" class="btn btn-sm"><i class="fa fa-paper-plane"></i>Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <h2 class="name">Muhammad Ilyas</h2>
-        <h3 class="username">fastroware&#64;gmail.com</h3>
-        <p class="tagline">7417417410</p>
-        <p class="description">Masih belajar CSS dan HTML.</p>
-        <a href="#" class="button">Edit Profile</a>
     </div>
-</div> -->
+</div>
