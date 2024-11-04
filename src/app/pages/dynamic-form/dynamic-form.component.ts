@@ -46,9 +46,7 @@ export class DynamicFormComponent {
       this.formId = params.id
     })
 
-    console.log(this.formId)
     if (this.formId != undefined) {
-      console.log("Entereddddddd")
       this.isEdit = 1;
       this.getSingleFormById();
     }
@@ -63,7 +61,6 @@ export class DynamicFormComponent {
     })
 
     this.myform.valueChanges.subscribe(formData => {
-      console.log("value changes")
       this.formStructureSubject.next(formData);
     });
 
@@ -203,7 +200,6 @@ export class DynamicFormComponent {
   }
 
   public submit(formValue: any) {
-    // console.log(formValue)
     if (this.isEdit) {
       const controlsArray = this.myform.get('controls') as FormArray;
       controlsArray.controls.forEach((control: AbstractControl) => {
@@ -213,12 +209,10 @@ export class DynamicFormComponent {
       });
     }
 
-    console.log(this.myform.value)
     this.spinner.show();
     this.dynamicService.saveDynamicFormDetails(this.myform.value).subscribe(
       res => {
         if (res) {
-          console.log(res)
           if (res.status == 1) {
             this.spinner.hide();
             this.toastr.successToastr(res.statusDesc);
@@ -234,7 +228,6 @@ export class DynamicFormComponent {
         }
       },
       err => {
-        console.log(err);
         this.spinner.hide();
         this.toastr.dangerToastr("Oops!,Something went wrong. Please try again.");
       },
@@ -246,8 +239,6 @@ export class DynamicFormComponent {
   }
 
   public onSelectInputType(event: any, i: any) {
-    console.log("Selected Value", event.target.value)
-    console.log(i);
     const formArray = this.myform.get('controls') as FormArray;
     if (event.target.value == 'checkbox') {
       const checkBoxOptionsArray = formArray.at(i).get('checkBoxOptions') as FormArray;
@@ -279,11 +270,9 @@ export class DynamicFormComponent {
   }
 
   onDragStarted(index: number) {
-    console.log('Drag started on:', index)
   }
 
   onDragEnded(index: number) {
-    console.log('Drag ended on:', index)
 
   }
 
@@ -293,10 +282,8 @@ export class DynamicFormComponent {
   //   const controls = this.myform.get('controls') as FormArray;
   //   moveItemInArray(controls.controls, event.previousIndex, event.currentIndex);
   //   controls.controls.forEach((control, index) => {
-  //     console.log("fhhhjfj", control)
   //     control.setValue(controls.at(index).value);
   //   });
-  //   console.log("XXXXXXXXXXX", controls.controls, this.myform.value)
   // }
 
   // selectAllText(inputElement: HTMLInputElement) {
@@ -316,13 +303,11 @@ export class DynamicFormComponent {
     this.dynamicService.getSingleFormById(this.formId).subscribe(
       res => {
         if (res.status == 1) {
-          console.log(res.data)
           this.setFormValue(res.data);
           this.spinner.hide();
         }
       },
       err => {
-        console.log(err)
       },
       () => {
 
@@ -331,7 +316,6 @@ export class DynamicFormComponent {
   }
 
   public setFormValue(data: any) {
-    console.log(data)
     const controls = this.myform.get('controls') as FormArray;
     controls.clear();
     let formName = this.myform.get('formName');
@@ -359,7 +343,6 @@ export class DynamicFormComponent {
       }))
     })
 
-    console.log(this.myform.value)
   }
 
   setOptions(event: any) { }

@@ -1,11 +1,10 @@
 <div class="container-fluid mx-0 px-0 top-sticky">
     <section class="header1">
-        <div class="row align-items-center">
+        <div class="row align-items-center" style="width: 100%;">
             <div class="col-md-6 d-flex header1-name">
                 <div class="desc">
-                    Welcome Admin
-                    <!-- Welcome {{this.userData?.user?.firstName + " " + this.userData?.user?.lastName + " (" +
-                    this.userData?.roleName + ")" }} -->
+                    Welcome {{userData.user.firstName + " " + (userData.user.lastName ? userData.user.lastName : '') +
+                    " (" + userData.roleName + ")" }}
                 </div>
             </div>
             <div class="col-md-6 d-flex header1-btns-div">
@@ -37,8 +36,6 @@
                             </div>
                         </div>
                     </button>
-
-
                 </div>
             </div>
         </div>

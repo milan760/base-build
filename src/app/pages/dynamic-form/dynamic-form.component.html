@@ -1,4 +1,4 @@
-<!-- <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
+<form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
     <section class="wrapper">
         <div class="first-section">
             <div class="row upper">
@@ -13,8 +13,8 @@
             <div class="row">
                 <div class="col-md-7" [@slideInOut]="slideState">
                     <div class="design-ground">
-                        <div class="forms" cdkDropList #controlList="cdkDropList"
-                            [cdkDropListData]="myform.get('controls')" (cdkDropListDropped)="drop($event)">
+                        <!-- <div class="forms" cdkDropList #controlList="cdkDropList"
+                            [cdkDropListData]="myform.get('controls')" (cdkDropListDropped)="drop($event)"> -->
                         <div class="forms">
                             <div class="group"
                                 [ngStyle]="{'border': i == selectedIndex ? '1px solid #124076' : '1px solid #c4e3e3' , 'border-left': i == selectedIndex ? '4px solid #124076' : '1px solid #c4e3e3'}"
@@ -99,10 +99,10 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="(makeAsFormGroup(form).controls['inputType'].value == 'checkbox')">
-                                    <div class="row"
-                                        *ngFor="let option of (makeAsFormGroup(form).get('checkBoxOptions') as FormArray)?.controls; let j = index"
-                                        [formGroup]="options">
-                                        <div class="col-md-1">
+                                    <!-- <div class="row"
+                                        *ngFor="let option of (makeAsFormGroup(form)?.get('checkBoxOptions') as FormArray)?.controls; let j = index"
+                                        [formGroup]="option"> -->
+                                        <!-- <div class="col-md-1">
                                             <input type="checkbox" [attr.disabled]="true">
                                         </div>
                                         <div class="col-md-10">
@@ -113,9 +113,9 @@
                                             <i role="button" *ngIf="j != 0"
                                                 (click)="removeOptions(i,j,'checkBoxOptions')" style="margin-top: 10px;"
                                                 class="fa fa-times" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-baseline">
+                                        </div> -->
+                                    <!-- </div> -->
+                                    <!-- <div class="row align-items-baseline">
                                         <div class="col-md-1">
                                             <input type="checkbox" [attr.disabled]="true">
                                         </div>
@@ -128,9 +128,9 @@
                                             <button type="button" class="reset"
                                                 (click)="reset(i,'checkBoxOptions')">Reset</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </ng-container>
-                                <ng-container *ngIf="form.controls.inputType.value == 'radio'">
+                                <!-- <ng-container *ngIf="form.controls.inputType.value == 'radio'">
                                     <div class="row"
                                         *ngFor="let options of form.get('radioOptions')['controls']; let j = index"
                                         [formGroup]="options">
@@ -159,8 +159,8 @@
                                                 (click)="reset(i,'radioOptions')">Reset</button>
                                         </div>
                                     </div>
-                                </ng-container>
-                                <ng-container *ngIf="form.controls.inputType.value == 'dropdown'">
+                                </ng-container> -->
+                                <!-- <ng-container *ngIf="form.controls.inputType.value == 'dropdown'">
                                     <div class="row"
                                         *ngFor="let options of form.get('dropDownOptions')['controls']; let j = index"
                                         [formGroup]="options">
@@ -193,10 +193,10 @@
                                                 (click)="reset(i,'dropDownOptions')">Reset</button>
                                         </div>
                                     </div>
-                                </ng-container>
+                                </ng-container> -->
 
 
-                                <div class="row fixed-items" *ngIf="i == selectedIndex" cdkDragHandle>
+                                <!-- <div class="row fixed-items" *ngIf="i == selectedIndex" cdkDragHandle>
                                     <div class="col-md-4">
                                         <label>Required</label>
                                         <span class="container" (click)="toggle(i)">
@@ -209,19 +209,19 @@
                                         <button *ngIf="i != 0" type="button"><i class="fa fa-trash" title="remove"
                                                 (click)="removeControl(i)" aria-hidden="true"></i></button>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
-                            <div class="group-items">
+                            <!-- <div class="group-items">
                                 <button type="button" title="Add" (click)="addNewControl()"><i class="fa fa-plus"
                                         aria-hidden="true"></i></button>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <app-preview [dataFromParent]="formStructureSubject" [flag]="'dyn-preview'"></app-preview>
+                    <!-- <app-preview [dataFromParent]="formStructureSubject" [flag]="'dyn-preview'"></app-preview> -->
                 </div>
             </div>
             <div class="row">
@@ -231,4 +231,4 @@
             </div>
         </div>
     </section>
-</form> -->
+</form>

@@ -56,9 +56,7 @@ export class HeaderComponent {
 
   @HostListener('window:click', ['$event'])
   public openCloseDrop(event: any): void {
-    // console.log(event.target, this.ddd.nativeElement, this.elementRef);
-    // console.log(this.settingDiv.nativeElement);
-    // console.log(this.elementRef.nativeElement.querySelectorAll("settingDiv"));
+    console.log(event.target);
     if (event.target === this.settingDiv?.nativeElement) { // !this.elementRef.nativeElement.contains(event.target)
       console.log('true settingDiv');
       this.isUserIconVisible = false;
@@ -122,6 +120,7 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.userData = this.storageService.getAccessDetailsFromLocalStorage();
+    console.log('userData', this.userData);
   }
 
   private createFormInstance() {
