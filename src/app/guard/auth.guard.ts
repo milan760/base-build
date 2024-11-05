@@ -5,13 +5,11 @@ import { of } from 'rxjs';
 import { ToastrClientService } from '../services/toastr/toastr-client.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  
+
   const router = inject(Router);
   const storageService = inject(StorageService);
   const toastrClientService = inject(ToastrClientService);
 
-  console.log('route', route);
-  console.log('route', state);
   let loggedInRole = storageService.getRoleFromLocalStorage();
 
   if (!loggedInRole) {
