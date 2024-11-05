@@ -62,19 +62,14 @@ export const InterceptService: HttpInterceptorFn = (req, next) => {
 
   try {
     token = storageService.getLocalStorageByAttribute('accessTokenDetails');
-    console.log('token', token);
-    console.log('isTokenExpired', jwtService.isTokenExpired(token.token));
   } catch (error) {
     console.warn(error);
-    console.log('There is no access token');
   }
-  // console.log('isTokenExpired', jwtService.isTokenExpired(token.token));
 
   // Check if the token is expired
   if (token && jwtService.isTokenExpired(token.token)) {
     // const accessTokenDetails = storageService.getLocalStorageByAttribute('accessTokenDetails');
     const data = { "userName": token.user.userName, "token": token.refreshToken }
-    console.log('Token is expired. Logging out...');
     authService.logout(data); // Logout the user
     router.navigate(['/landing-page/signin']); // Redirect to login page
     // return throwError('Token expired'); // Stop the request
@@ -84,11 +79,9 @@ export const InterceptService: HttpInterceptorFn = (req, next) => {
     retryWhen((error) =>
       error.pipe(
         concatMap((error, count) => {
-          console.warn('interceptor concatMap');
 
           if (count < retryCount) { // Retry a maximum of 3 times
             if (error.status === 401) {
-              console.warn('interceptor retry');
               // Handle refresh token logic here if needed
               return of(error); // Retry the request
             }
