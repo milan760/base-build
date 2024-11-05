@@ -34,7 +34,7 @@ export class RoleResourceMappingComponent {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private toastr: ToastrClientService,
-    public service: CommonService,
+    public commonService: CommonService,
     private uacService: UacService
   ) {
     this.createFormInstance();
@@ -210,6 +210,7 @@ export class RoleResourceMappingComponent {
       next: (res: any) => {
         if (res) {
           this.toastr.successToastr(res.statusDesc);
+          this.commonService.changeResourceList(true);
           // window.location.reload();
         } else {
           this.toastr.infoToastr(res.statusDesc);
