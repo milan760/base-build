@@ -94,6 +94,14 @@ export class HorizontalMenuComponent {
     private commonService: CommonService
   ) {
     this.resourceStatus = 'pending';
+    this.commonService.getResourceList().subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.viewResourcesList = [];
+          this.getAllResourceByLogin();
+        }
+      }
+    })
   }
 
   ngDoCheck(): void {
