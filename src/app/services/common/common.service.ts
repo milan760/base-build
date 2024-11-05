@@ -10,6 +10,7 @@ export class CommonService {
   private storedDetails: any; // (primary purpose) used for data storing on edit button clicked from a row of a table.
   activeIndex = new Subject<any>();
   private isMenuActive$ = new BehaviorSubject<boolean>(false);
+  private isRecalled$ = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
@@ -41,5 +42,13 @@ export class CommonService {
 
   getMenuState() {
     return this.isMenuActive$.asObservable();
+  }
+
+  changeResourceList(isRecalled: boolean) {
+    this.isRecalled$.next(isRecalled);
+  }
+
+  getResourceList() {
+    return this.isRecalled$.asObservable();
   }
 }
