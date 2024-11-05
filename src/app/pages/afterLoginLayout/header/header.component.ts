@@ -56,38 +56,27 @@ export class HeaderComponent {
 
   @HostListener('window:click', ['$event'])
   public openCloseDrop(event: any): void {
-    console.log(event.target);
     if (event.target === this.settingDiv?.nativeElement) { // !this.elementRef.nativeElement.contains(event.target)
-      console.log('true settingDiv');
       this.isUserIconVisible = false;
       this.isSettingVisible = true;
     } else if (event.target === this.userDiv.nativeElement) { // !this.elementRef.nativeElement.contains(event.target)
-      console.log('true userDiv');
       this.isUserIconVisible = true;
       this.isSettingVisible = false;
     } else if (this.isSettingVisible && event.target === this.themeDiv.nativeElement) { // !this.elementRef.nativeElement.contains(event.target)
-      console.log('true themeDiv');
       this.isThemeVisible = true;
     } else if (this.isThemeVisible = true && this.colors.some(color => color.nativeElement === event.target)) {
-      console.log('true colors');
       // (this.child.find( (item , index) => index === 0 ).nativeElement as HTMLElement).click();
-      // console.log(typeof (event.target), typeof (event.target as HTMLElement), typeof (this.ddd.nativeElement.children));
-      console.log(Object.keys(this.ddd.nativeElement.children), event.target, this.ddd.nativeElement.children);
       let element = this.ddd.nativeElement;
       Object.keys(element.children).forEach(key => {
-        // console.log(element.children[key], event.target);
         if (element.children[key].nativeElement == event.target) {
-          console.log('yes');
         }
         if (element.children[key].children) {
 
         }
       });
-      // console.log(this.ddd.nativeElement.forEach((ele: { nativeElement: any; }) => ele === event.target));
       // this.isSettingVisible = true;
       this.isThemeVisible = true;
     } else {
-      // console.log('all false');
       this.isUserIconVisible = false;
       this.isSettingVisible = false;
       this.isThemeVisible = false;
@@ -120,7 +109,6 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.userData = this.storageService.getAccessDetailsFromLocalStorage();
-    console.log('userData', this.userData);
   }
 
   private createFormInstance() {
@@ -165,7 +153,7 @@ export class HeaderComponent {
         }
       },
       error: (err) => {
-        console.error('Error fetching captcha:', err);
+        console.error(err);
         this.spinner.hide();
       },
       complete: () => {
@@ -175,7 +163,6 @@ export class HeaderComponent {
   }
 
   public setTheme(themeName: any, event?: any) {
-    console.log('themeName', themeName, 'themeName', event.target.value);
     switch (themeName) {
       case 'header': document.documentElement.style.setProperty('--header-color', event.target.value); break;
       case 'menu': document.documentElement.style.setProperty('--menu-color', event.target.value); break;
@@ -199,7 +186,6 @@ export class HeaderComponent {
     const token = this.storageService.getAccessDetailsFromLocalStorage();
     if (token) {
       const data = { "userName": token.user.userName, "token": token.refreshToken }
-      console.log(data);
       this.spinner.show();
       this.authService.logout(data).subscribe({
         next: (res: any) => {
@@ -230,13 +216,9 @@ export class HeaderComponent {
 
     if (inputElement && inputElement.files && inputElement.files.length > 0) {
       file = inputElement.files[0];
-      console.log("file", file);
-    } else {
-      console.log("No file selected");
-    }
+    } else { }
     // const file = ($event.target as HTMLInputElement).files[0];
 
-    console.log("file", file);
     if (!file.name.match(new RegExp(/\.(jpeg|png|JPEG|PNG|jpg|JPG)$/))) {
       this.toastr.infoToastr('Only .jpeg, .jpg or .png image format are allowed.');
       this.fileTypeflag = true;
@@ -265,17 +247,14 @@ export class HeaderComponent {
       // var strImage = d.replace(/^data:image\/[a-z]+;base64,/, "");
       this.myform.get("profilePic")?.patchValue(d);
       // this.profileImage = d;
-      console.log("byte array", d);
     });
   }
 
   public readFile(file: File, subscriber: Subscriber<any>) {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
-    console.log("filereader", fileReader);
     fileReader.onload = () => {
       subscriber.next(fileReader.result);
-      console.log("filereader result", fileReader.result);
       subscriber.complete();
     };
     fileReader.onerror = (error) => {
@@ -285,7 +264,6 @@ export class HeaderComponent {
   }
 
   public updateProfileData(data: any) {
-    console.log("data", data)
     this.isSubmitClicked = true;
     if (this.myform.invalid) {
       return;
@@ -301,11 +279,9 @@ export class HeaderComponent {
     this.spinner.show();
     this.mdmservice.updateProfile(data).subscribe(
       res => {
-        console.log("on submit", res);
         if (res) {
           if (res.status == 1) {
             this.toastr.successToastr(res.statusDesc);
-            // console.log('Uploaded Data', data);
             this.getProfileDetails();
             this.edit = false;
           }
@@ -350,7 +326,7 @@ export class HeaderComponent {
   public viewFileModal() {
     this.viewImageModal.show();
   }
-  
+
   public hideFileModal() {
     this.viewImageModal.hide();
   }
