@@ -1,0 +1,63 @@
+<div class="wrapper">
+    <form [formGroup]="myform">
+        <section class="top">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div class="wrap">
+                        <div class="search">
+                            <input type="search" formControlName="searchKey" placeholder="Search Dynamic Form">
+                        </div>
+                    </div>
+
+                    <button type="button" (click)="submit(myform.value)" class="create-btn">Search</button>
+                </div>
+            </div>
+        </section>
+    </form>
+
+
+    <div class="row" style="margin-top: 35px;padding: 0 6% 0 6%;">
+        <div class="col-md-3">
+            <div class="card create-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 bar"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex align-items-center" style="min-height: 100px;">
+                            <h2>Create Form</h2>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-md-6 bar"></div>
+                        <div class="col-md-6">
+                            <div class="icon" role="button" (click)="navigateTo('pages/dynamic-form/create-form')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" *ngFor="let data of getAllFormData">
+            <div class="card" style="width: 18rem; border: none !important;">
+                <div class="card-img-top" style="height: 9.1rem;overflow: hidden;pointer-events: none;">
+                    <app-preview [dataFromDashboard]="data" [flag]="'sys-preview'"></app-preview>
+                </div>
+                <div class="card-body"
+                    style="border: 1px solid #dddada;border-top: 1px solid #9dafc9;padding: 0.7rem !important;">
+                    <button class="full-screen-btn" (click)="navigateToFullPreview(data)"><i class="fa fa-arrows-alt"
+                            aria-hidden="true"></i> <span class="text"> Full
+                            Preview</span></button>
+                    <button class="icon-btn" title="edit" (click)="editForm(data)"><i class="fa fa-pencil-square"
+                            aria-hidden="true"></i></button>
+                    <button class="icon-btn" title="delete" (click)="deleteForm(data['id'])"><i class="fa fa-trash"
+                            aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

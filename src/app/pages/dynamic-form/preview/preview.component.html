@@ -1,1 +1,55 @@
-<p>preview works!</p>
+<div class="preview-container" [ngStyle]="{'border-top': currentURL == 'dashboard' ? '5px solid #387ADF': 'none' }">
+    <div class="row">
+        <div class="col-md-12 preview-header">
+            <h4 style="font-size: 4vmin;" class="text-center">{{formName}}</h4>
+        </div>
+    </div>
+    <div class="preview-body">
+        <div class="row" style="margin-bottom: 10px;" *ngFor="let control of controls">
+            <div class="col-md-12">
+                <label [ngClass]="{ 'required-label': control['required'] }">{{control['labelName']}}</label>
+            </div>
+            <div class="col-md-12">
+                <ng-container
+                    *ngIf="control['inputType'] == 'text' || control['inputType'] == 'email'  || control['inputType'] == 'password'">
+                    <input [type]="control['inputType']" autocomplete="new-password" [placeholder]="control['placeholder']">
+                </ng-container>
+
+                <ng-container *ngIf="control['inputType'] == 'file'">
+                    <input [type]="control['inputType']">
+                </ng-container>
+
+                <ng-container *ngIf="control['inputType'] == 'number'">
+                    <input [type]="control['inputType']" [placeholder]="control['placeholder']" [min]="control['min']"
+                        [max]="control['max']">
+                </ng-container>
+                <ng-container *ngIf="control['inputType'] == 'date'">
+                    <input [type]="control['inputType']" [placeholder]="control['placeholder']" [min]="control['min']"
+                        [max]="control['max']">
+                </ng-container>
+                <ng-container *ngIf="control['inputType'] == 'checkbox'">
+                    <ng-container *ngFor="let option of control['checkBoxOptions']">
+                        <div class="checkbox">
+                            <input [type]="control['inputType']" [value]="option.optionDesc">
+                            <label>{{option.optionDesc}}</label>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="control['inputType'] == 'radio'">
+                    <ng-container *ngFor="let option of control['radioOptions']">
+                        <div class="checkbox">
+                            <input [type]="control['inputType']" name="radio" [value]="option.optionDesc">
+                            <label>{{option.optionDesc}}</label>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="control['inputType'] == 'dropdown'">
+                    <select style="width: 100%;">
+                        <option>--select--</option>
+                        <option *ngFor="let option of control['dropDownOptions']">{{option.optionDesc}}</option>
+                    </select>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

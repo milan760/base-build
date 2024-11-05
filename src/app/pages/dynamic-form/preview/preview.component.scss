@@ -1,0 +1,52 @@
+.preview-container {
+    background: #ffffff;
+    margin-top: 5px;
+    border: 1px solid #9dafc9;
+    // border-top: 5px solid #387ADF;
+    padding-top: 5px;
+    border-radius: 7px 7px 0px 0px;
+    border-bottom: 1px solid #9dafc9;
+
+
+    .preview-body {
+        padding: 10px 30px;
+
+        input,select {
+            border: 1px solid #cfcad7;
+            border-radius: 7px;
+            padding: 8px;            
+            width: 100%;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            border: 1px solid #333A73;
+            outline: none;
+            border-bottom: 3.9px solid #333A73;
+        }
+
+        .checkbox input {
+            width: auto !important;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 0rem;
+        }
+
+
+        .checkbox label {
+            margin-left: 5px;
+            bottom: 2px;
+            position: relative;
+        }
+
+        .required-label:after {
+            content: "*";
+            margin-right: 4px;
+            color: red;
+        }
+
+
+    }
+}

@@ -1,1 +1,237 @@
-<p>create-form works!</p>
+<form [formGroup]="myform" (ngSubmit)="submit()">
+    <section class="wrapper">
+        <div class="first-section">
+            <div class="row upper">
+                <div class="col-md-12">
+                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                    <input formControlName="formName" type="text" class="form-name"
+                        [value]="myform.get('formName')?.value">
+                </div>
+            </div>
+        </div>
+        <div class="second-section" (click)="handleClick($event)">
+            <div class="row">
+                <div class="col-md-7" [@slideInOut]="slideState">
+                    <div class="design-ground">
+                        <!-- <div class="forms" cdkDropList #controlList="cdkDropList"
+                            [cdkDropListData]="myform.get('controls')" (cdkDropListDropped)="drop($event)"> -->
+                        <div class="forms">
+                            <div class="group"
+                                [ngStyle]="{'border': i == selectedIndex ? '1px solid #124076' : '1px solid #c4e3e3' , 'border-left': i == selectedIndex ? '4px solid #124076' : '1px solid #c4e3e3'}"
+                                (click)="select($event, i)"
+                                *ngFor="let form of formArrayControls.controls; let i = index"
+                                [formGroup]="asFormGroup(form)">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Label Name: </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input formControlName="labelName" (click)="selectAllText($event.target)"
+                                            (blur)="onChangeLabelName($event,i)" type="text" class="label-name">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Input Type: </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select formControlName="inputType" (change)="onSelectInputType($event,i)">
+                                            <option value="">Select</option>
+                                            <option value="text">text</option>
+                                            <option value="number">number</option>
+                                            <option value="password">password</option>
+                                            <option value="dropdown">Dropdown</option>
+                                            <option value="date">datepicker</option>
+                                            <option value="email">email</option>
+                                            <option value="checkbox">checkbox</option>
+                                            <option value="radio">radio button</option>
+                                            <option value="file">file upload</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="(makeAsFormGroup(form).controls['inputType'].value === 'text' 
+                                    || makeAsFormGroup(form).controls['inputType'].value === 'email' 
+                                    || makeAsFormGroup(form).controls['inputType'].value === 'password')">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Placeholder: </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input formControlName="placeholder" (click)="selectAllText($event.target)"
+                                                type="text" autocomplete="off" class="label-name">
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="(makeAsFormGroup(form).controls['inputType'].value == 'number')">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Placeholder: </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input formControlName="placeholder" (click)="selectAllText($event.target)"
+                                                type="text" class="label-name">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input formControlName="min" min="0" (click)="selectAllText($event.target)"
+                                                placeholder="Min" type="number" class="label-name">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input formControlName="max" min="0" (click)="selectAllText($event.target)"
+                                                placeholder="Max" type="number" class="label-name">
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="(makeAsFormGroup(form).controls['inputType'].value == 'date')">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            Min Date: <input formControlName="min" min="0"
+                                                (click)="selectAllText($event.target)" placeholder="Min" type="date"
+                                                class="label-name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            Max Date: <input formControlName="max" min="0"
+                                                (click)="selectAllText($event.target)" placeholder="Max" type="date"
+                                                class="label-name">
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="(makeAsFormGroup(form).controls['inputType'].value == 'checkbox')">
+                                    <div class="row"
+                                        *ngFor="let options of getCheckBoxOptionsControls(i); let j = index"
+                                        [formGroup]="asFormGroup(options)">
+                                        <div class="col-md-1">
+                                            <input type="checkbox" [attr.disabled]="true">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="label-name" formControlName="optionDesc"
+                                                (click)="selectAllText($event.target)">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i role="button" *ngIf="j != 0"
+                                                (click)="removeOptions(i,j,'checkBoxOptions')" style="margin-top: 10px;"
+                                                class="fa fa-times" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-baseline">
+                                        <div class="col-md-1">
+                                            <input type="checkbox" [attr.disabled]="true">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <span role="button" class="add-checkbox"
+                                                (click)="addNewCheckboxOptions(i)">Add
+                                                option</span>
+                                        </div>
+                                        <div class="col-md-4 d-flex justify-content-end">
+                                            <button type="button" class="reset"
+                                                (click)="reset(i,'checkBoxOptions')">Reset</button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="makeAsFormGroup(form).controls['inputType'].value == 'radio'">
+                                    <div class="row" *ngFor="let options of getRadioOptionsControls(i); let j = index"
+                                        [formGroup]="asFormGroup(options)">
+                                        <div class="col-md-1">
+                                            <input type="radio" [attr.disabled]="true">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="label-name" formControlName="optionDesc"
+                                                (click)="selectAllText($event.target)">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i role="button" *ngIf="j != 0" (click)="removeOptions(i,j,'radioOptions')"
+                                                style="margin-top: 10px;" class="fa fa-times" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-baseline">
+                                        <div class="col-md-1">
+                                            <input type="radio" [attr.disabled]="true">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <span role="button" class="add-checkbox" (click)="addNewRadioOptions(i)">Add
+                                                option</span>
+                                        </div>
+                                        <div class="col-md-4 d-flex justify-content-end">
+                                            <button type="button" class="reset"
+                                                (click)="reset(i,'radioOptions')">Reset</button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="makeAsFormGroup(form).controls['inputType'].value == 'dropdown'">
+                                    <!-- <div class="row"
+                                        *ngFor="let options of form.get('dropDownOptions')['controls']; let j = index"
+                                        [formGroup]="options"> -->
+                                    <div class="row"
+                                        *ngFor="let options of getdropDownOptionsControls(i); let j = index"
+                                        [formGroup]="asFormGroup(options)">
+                                        <div class="col-md-11">
+                                            <ul>
+                                                <li>
+                                                    <input type="text" class="label-name" formControlName="optionDesc"
+                                                        (click)="selectAllText($event.target)">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i role="button" *ngIf="j != 0"
+                                                (click)="removeOptions(i,j,'dropDownOptions')" style="margin-top: 10px;"
+                                                class="fa fa-times" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-baseline">
+                                        <div class="col-md-8">
+                                            <ul>
+                                                <li>
+                                                    <span role="button" class="add-checkbox"
+                                                        (click)="addNewDropdownOptions(i)">Add
+                                                        option</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 d-flex justify-content-end">
+                                            <button type="button" class="reset"
+                                                (click)="reset(i,'dropDownOptions')">Reset</button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+
+                                <div class="row fixed-items" *ngIf="i == selectedIndex" cdkDragHandle>
+                                    <div class="col-md-4">
+                                        <label>Required</label>
+                                        <span class="container" (click)="toggle(i)">
+                                            <span class="toggle"
+                                                [class.active]="(myform.get('controls.' + i + '.required')?.value)"></span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6" style="cursor: all-scroll;"></div>
+                                    <div class="col-md-2">
+                                        <button *ngIf="i != 0" type="button"><i class="fa fa-trash" title="remove"
+                                                (click)="removeControl(i)" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="group-items">
+                                <button type="button" title="Add" (click)="addNewControl()"><i class="fa fa-plus"
+                                        aria-hidden="true"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <app-preview [dataFromParent]="formStructureSubject"></app-preview>
+                    <!-- <app-preview [dataFromParent]="formStructureSubject" [flag]="'dyn-preview'"></app-preview> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 d-flex justify-content-center ">
+                    <button type="submit" class="btn" style="background: #fba834;margin-top: 20px;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
