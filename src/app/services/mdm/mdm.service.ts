@@ -10,6 +10,7 @@ export class MdmService {
   public MDM_URL: any = '';
   public PROFILE_URL: any = '';
   public RESOURCE_REGISTER_URL: any = '';
+  public DYN_URL: any = '';
 
   constructor(
     private httpClient: HttpClientService
@@ -17,6 +18,7 @@ export class MdmService {
     this.MDM_URL = AppConstants.BASE_API_URL + "mdm/";
     this.PROFILE_URL = AppConstants.BASE_API_URL + "profiles/"
     this.RESOURCE_REGISTER_URL = AppConstants.BASE_API_URL + "resourceregister/"
+    this.DYN_URL = AppConstants.BASE_API_URL + "dyn/"
   }
 
   public getAllExamConductingAgency() {
@@ -42,9 +44,22 @@ export class MdmService {
     return this.httpClient.get(this.RESOURCE_REGISTER_URL + "getResourceDetailsByRoleName");
   }
 
+  // =========================================================================================
+  //                                          Dynamic Form API
+  // =========================================================================================
 
+  public saveDynamicFormDetails(data: any) {
+    return this.httpClient.post(this.DYN_URL + "saveOrUpdateDynamicFormDetails", data);
+  }
+  public getAllDynamicFormDetails(data: any) {
+    return this.httpClient.post(this.DYN_URL + "getAllDynamicFormDetails", data);
+  }
 
-  // public createOrUpdateUser(data: any) {
-  //   return this.httpClient.postFD(AppConstants.BASE_API_URL + "profiles/updateProfileDetails", data);
-  // }
+  public getSingleFormById(formId: any) {
+    return this.httpClient.get(this.DYN_URL + "getSingleFormById/" + formId)
+  }
+
+  public deleteFormById(formId: any) {
+    return this.httpClient.get(this.DYN_URL + "deleteFromById/" + formId)
+  }
 }
